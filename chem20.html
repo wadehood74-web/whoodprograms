@@ -1,0 +1,499 @@
+<html>
+<title>
+
+document.write("CHEM20 - percent composition ");
+
+</title>
+
+<body>
+<canvas id="square" width=700 height=300></canvas>
+
+<script>
+
+/*
+CHEM37.html - acid base titration....
+*/
+
+// declare variables.....
+//
+var problem=1;
+var tries=1;
+var type=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "percent comp  ";
+var s3 = "";//WOWEE!";
+var s4="percent composition ";//" Q=mc\u0394T";//"   d = m / v";
+var s5, s6, s7, s8, s9, s10, s11, s12,s5c,s5d,s5e,s5f,s5g,hint; //format decimals
+var sq="\u00b2";
+var delta="\u0394"
+s7=s5c=s5d=s5e=s5f=s5g=hint="";
+var c,d,e,f,g;
+c=d=e=f=g=0;
+
+// restart(); - nope did not work...
+// s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+
+var x=3;
+var pe=0.0;
+
+newVals(); //Problem 1 start
+
+//x=y+z;
+
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b)
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.011)
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+      //s1="If you score is good, have your teacher record it."
+      //s2="If you want to restart, press that button below."
+      //repaint();
+    }
+  else
+{//keep working
+
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert("mmmmm, try again..."+hint)
+          s7=hint;
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert("answer was "+final);
+            //tries=1;
+            s7="answer was "+final;
+            s4="next...";
+            problem++;
+            newVals();
+
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}
+
+function newVals()
+{
+
+
+  tries=1;
+  type=Math.ceil(Math.random()*15); //2 types problems....
+
+     //type=15;
+
+  //if(problem>5)
+  //type+=2;
+
+  //type=4;
+  // problems 1-5 1:1, problem 6-10 2:1 or 2:3 ratios
+
+  y=Math.ceil(Math.random()*100)/10 +10;
+  s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(3);
+  x=y*z; // (xF, ym, za)
+  s9=x.toPrecision(3);
+  //s7="";
+  c=Math.ceil(Math.random()*1000)/5000 +0.2000;  //0.0200 - 0.2200 c M1
+  s5c=c.toPrecision(4);
+  d=c+Math.ceil(Math.random()*1000)/50 +10;  // 10-30 d  V1
+  s5d=d.toPrecision(4);
+  e=Math.ceil(Math.random()*1000)/30 +20;  // 20-55 e V2
+  s5e=e.toPrecision(3);
+  f=Math.ceil(Math.random()*100)/10 +20;  // 20-30 Ti
+  s5f=f.toPrecision(3);
+  g=Math.ceil(Math.random()*100)/10 +30;  // deltaT 10-40 g
+  s5g=g.toPrecision(3);
+  //y=c/f; // distance of Wo
+  //s5=y.toPrecision(4);
+  z=c*d;
+  s6=z.toPrecision(4);
+  y=z*2.0/3.0; // y is Tf
+  s5=y.toPrecision(3);
+  //f=
+
+
+//c,d,e,f,g
+  switch(type)
+  {
+    case 1: //.. Na in Na2SO4..
+    x=100*45.98/142.05;
+    s10=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of sodium in the compound ";
+    s3=" sodium sulfate ";
+    s4=" ";
+    z=142.05;
+    s6=z.toPrecision(5);
+    hint=" Na2SO4 has a molar mass of "+s6+" g/mol ";
+
+    final=" 2(22.99) / 142.05 = "+s10;
+    //x=y/z;
+    break;
+     ////////////////////////
+
+    //
+    case 2: //  S in Na2SO4
+
+    x=100*32.07/142.05;
+    s10=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of sulfur in the compound ";
+    s3=" sodium sulfate ";
+    s4=" ";
+    z=142.05;
+    s6=z.toPrecision(5);
+    hint=" Na2SO4 has a molar mass of "+s6+" g/mol ";
+
+    final=" 32.07 / 142.05 = "+s10;
+    //x=y/z;
+    break;
+////////
+    case 3: //  O in Na2SO4
+
+    x=100*64.0/142.05;
+    s10=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" sodium sulfate ";
+    s4=" ";
+    z=142.05;
+    s6=z.toPrecision(5);
+    hint=" Na2SO4 has a molar mass of "+s6+" g/mol ";
+    final=" 4(16.00) / 142.05 = "+s10;
+
+    //x=y/z;
+    break;
+     ////////////////////////
+     case 4: // K in KMnO4
+
+     x=100*39.10/158.04;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of potassium in the compound ";
+     s3=" potassium permanganate ";
+     s4=" ";
+     z=158.04;
+     s6=z.toPrecision(5);
+     hint=" KMnO4 has a molar mass of "+s6+" g/mol ";
+     final=" 39.10 / 158.04 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 5: // Mn in KMnO4
+
+     x=100*54.94/158.04;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of manganese in the compound ";
+     s3=" potassium permanganate ";
+     s4=" ";
+     z=158.04;
+     s6=z.toPrecision(5);
+     hint=" KMnO4 has a molar mass of "+s6+" g/mol ";
+     final=" 54.94 / 158.04 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 6: // O in KMnO4
+
+     x=100*64.00/158.04;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of oxygen in the compound ";
+     s3=" potassium permanganate ";
+     s4=" ";
+     z=158.04;
+     s6=z.toPrecision(5);
+     hint=" KMnO4 has a molar mass of "+s6+" g/mol ";
+     final=" 4(16.00) / 158.04 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 7: // Fe in Fe(NO3)3
+
+     x=100*55.85/241.85;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of iron in the compound ";
+     s3=" iron (III) nitrate ";
+     s4=" ";
+     z=241.85;
+     s6=z.toPrecision(5);
+     hint=" Fe(NO3)3 has a molar mass of "+s6+" g/mol ";
+     final=" 55.85 / 241.85 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 8: // N in Fe(NO3)3
+
+     x=100*3*14.00/241.85;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of nitrogen in the compound ";
+     s3=" iron (III) nitrate ";
+     s4=" ";
+     z=241.85;
+     s6=z.toPrecision(5);
+     hint=" Fe(NO3)3 has a molar mass of "+s6+" g/mol ";
+     final=" 3(14.00) / 241.85 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 9: // O in Fe(NO3)3
+
+     x=100*9*16.00/241.85;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of oxygen in the compound ";
+     s3=" iron (III) nitrate ";
+     s4=" ";
+     z=241.85;
+     s6=z.toPrecision(5);
+     hint=" Fe(NO3)3 has a molar mass of "+s6+" g/mol ";
+     final=" 9(16.00) / 241.85 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 10: // Ca in Ca(OH)2
+
+     x=100*40.08/74.08;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of calcium in the compound ";
+     s3=" calcium hydroxide ";
+     s4=" ";
+     z=74.08;
+     s6=z.toPrecision(5);
+     hint=" Ca(OH)2 has a molar mass of "+s6+" g/mol ";
+     final=" 40.08 / 74.08 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 11: // O in Ca(OH)2
+
+     x=100*2*16.00/74.08;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of oxygen in the compound ";
+     s3=" calcium hydroxide ";
+     s4=" ";
+     z=74.08;
+     s6=z.toPrecision(5);
+     hint=" Ca(OH)2 has a molar mass of "+s6+" g/mol ";
+     final=" 2(16.00) / 74.08 = "+s10;
+
+     break;
+
+
+     ////////////////////////
+     case 12: // O in FeO
+
+     x=100*16.00/71.85;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of oxygen in the compound ";
+     s3=" iron (II) oxide ";
+     s4=" ";
+     z=71.85;
+     s6=z.toPrecision(5);
+     hint=" FeO has a molar mass of "+s6+" g/mol ";
+     final=" 16.00 / 71.85 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 13: // Fe in FeO
+
+     x=100*55.85/71.85;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of iron in the compound ";
+     s3=" iron (II) oxide ";
+     s4=" ";
+     z=71.85;
+     s6=z.toPrecision(5);
+     hint=" FeO has a molar mass of "+s6+" g/mol ";
+     final=" 55.85 / 71.85 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 14: // Fe in Fe2O3
+
+     x=100*2*55.85/159.70;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of iron in the compound ";
+     s3=" iron (III) oxide ";
+     s4=" ";
+     z=159.70;
+     s6=z.toPrecision(5);
+     hint=" Fe2O3 has a molar mass of "+s6+" g/mol ";
+     final=" 2*55.85 / 159.70 = "+s10;
+
+     break;
+
+     ////////////////////////
+     case 15: // Fe in Fe2O3
+
+     x=100*3*16.00/159.70;
+     s10=x.toPrecision(3)+ " % ";
+     s2="Find the percent (by mass)  of oxygen in the compound ";
+     s3=" iron (III) oxide ";
+     s4=" ";
+     z=159.70;
+     s6=z.toPrecision(5);
+     hint=" Fe2O3 has a molar mass of "+s6+" g/mol ";
+     final=" 3*16.00 / 159.70 = "+s10;
+
+     break;
+
+
+
+
+  }
+
+
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+
+
+  //repaint(); *** ERROR FOR SOME REASON????
+} //end newVals()
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+
+  repaint();
+}
+
+function repaint()
+{
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+
+}
+
+var canvas = document.getElementById("square");
+repaint();
+
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n CHEM20.html");
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+</body>
+
+</html>

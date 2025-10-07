@@ -1,0 +1,381 @@
+<html>
+<title>
+
+document.write("IPC19 - Q=mcT ");
+
+</title>
+
+<body>
+<canvas id="square" width=700 height=300></canvas>
+
+<script>
+
+/*
+IPC19.html - Q=mcT
+*** need to get second try working-check!!
+*** needs another problem, with random #s...check!!
+*** need restart button to go back to problem 1--problem ....check!!!
+*** need another method for next problem and new program....check!!!
+*** needs scoring...check!!!
+*** needs solve for volume......check!!!
+*** debug and take out pe answers check for s7...
+
+*/
+
+// declare variables.....
+//
+var problem=1;
+var tries=1;
+var type=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "PE  ";
+var s3 = "";//WOWEE!";
+var s4="heat ";//" Q=mc\u0394T";//"   d = m / v";
+var s5, s6, s7, s8, s9, s10, s11, s12,s13,s5c,s5d,s5e,s5f,s5g,hint; //format decimals
+var sq="\u00b2";
+var delta="\u0394"
+s7=s5c=s5d=s5e=s5f=s5g=hint=s13="";
+var c,d,e,f,g;
+c=d=e=f=g=0;
+
+// restart(); - nope did not work...
+// s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+
+var x=3;
+var pe=0.0;
+
+//newVals code goes here for problem 1..
+
+/*var y=Math.ceil(Math.random()*100)/10+1;
+s5=y.toPrecision(3);
+var z=Math.ceil(Math.random()*100)/10+1;
+s6=z.toPrecision(3);
+s2="x = "+s5+" + "+s6;
+*/
+
+newVals(); //Problem 1 start
+
+//x=y+z;
+
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b)
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.011)
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+      //s1="If you score is good, have your teacher record it."
+      //s2="If you want to restart, press that button below."
+      //repaint();
+    }
+  else
+{//keep working
+
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert("mmmmm, try again..."+hint)
+          s7=hint;
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert("answer was "+final);
+            //tries=1;
+            s7="answer was "+final;
+            s4="next...";
+            problem++;
+            newVals();
+
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}
+
+function newVals()
+{
+
+  /*
+  var y=Math.ceil(Math.random()*100)/10+1;
+  s5=y.toPrecision(4);
+  var z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(4);
+
+  var x=3;
+  var pe=0.0;
+  var y=Math.ceil(Math.random()*100)/10+1;
+  s5=y.toPrecision(3);
+  var z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(3);
+  s2="x = "+s5+" + "+s6;
+  x=y+z;
+
+  */
+  //
+  tries=1;
+  type=Math.ceil(Math.random()*3); //3 types problems....
+
+   //type=3;
+
+  y=Math.ceil(Math.random()*100)/10 +10;
+  s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(3);
+  x=y*z; // (xF, ym, za)
+  s9=x.toPrecision(3);
+  //s7="";
+  c=Math.ceil(Math.random()*1000)/500 +0.2000;  //0.200 - 2.200 c
+  s5c=c.toPrecision(4);
+  d=c+Math.ceil(Math.random()*1000)/10 +100;  // 100-200 more than c
+  s5d=d.toPrecision(4);
+  e=Math.ceil(Math.random()*1000)/50 +20;  // 20-40 e (mass)
+  s5e=e.toPrecision(3);
+  f=Math.ceil(Math.random()*100)/10 +20;  // 20-30 Ti
+  s5f=f.toPrecision(3);
+  g=Math.ceil(Math.random()*100)/10 +30;  // deltaT 10-40 g
+  s5g=g.toPrecision(3);
+  //y=c/f; // distance of Wo
+  //s5=y.toPrecision(4);
+  z=d/g;
+  s6=z.toPrecision(4);
+  y=f+g; // y is Tf
+  s5=y.toPrecision(3);
+  //f=
+
+
+//c,d,e,f,g
+  switch(type)
+  {
+    case 1: //.. Q=mcT = e * 4.18 * g,  yep yep but verify
+
+    s2=" If  "+s5e+" g water is heated from "+s5f+" C to "+ s5+" C,  ";
+    s3=" what is the energy required?  Use water c = 4.18 J/gC   ";
+
+    x=4.18 * e*g;
+    hint="Q =  mc"+delta+"T = ("+s5e+" g)(4.18 J/gC )( "+s5g+" C) = "
+    s10=x.toPrecision(4)+ " J ";
+    final=""+s10;
+    //x=y/z;
+    break;
+     ////////////////////////
+
+    //
+    case 2: //  Q=mc(Tf-Ti)    z=e4.18(T-f)    yes, but verify...
+    z=4.18*e*g;
+    s6=z.toPrecision(4);
+     s2=" If you heat "+s5e+" g water with "+s6+" J  at an initial temperature of";
+    // for "+s6+" m up a ramp,  ";
+    s3=s5f+" C, find the final temperature.   Use water c = 4.18 J/gC  ";
+    //s4="";
+    x=y; // mass is answer...x in input answer...
+    hint="Q =  mc"+delta+"T = "+s6+" J = ("+s5e+" g)(4.18 J/gC )( Tf -"+s5f+" C)  "
+    s10=x.toPrecision(3)+ " C ";
+    final="Tf = "+s10;
+    break;
+
+////////
+    case 3: //.. nabro... find c specific heat z-- Q=mcT  z = e * x * g , x=c;
+    z=c*e*g;
+    s6=z.toPrecision(4);
+    s2=" Find the specific heat of an object if "+s6+" J is used to raise the temp from ";
+    s3= s5f+" C to "+ s5+" C, and the mass is "+s5e+" g .";
+    x=c;
+    //x=4.18 * e*g;
+    hint="Q =  mc"+delta+"T = "+s6+" J = ("+s5e+" g)( c )( "+s5g+" C), solve for c "
+    s10=x.toPrecision(4)+ " J/gC";
+    final=""+s10;
+    //x=y/z;
+    break;
+     ////////////////////////
+     case 4: //.. nabro... find m-- Q=mcT  = e * 4.18 * g
+     z=4.18*e*g;
+     s6=z.toPrecision(4);
+     s2=" Find the mass of water if "+s6+" J is used to raise water from ";
+     s3= s5f+" C to "+ s5+" C.  Use water c = 4.18 J/gC   ";
+
+     x=4.18 * e*g;
+     hint="Q =  mg"+delta+"T = ("+s5e+" g)(4.18 J/gC )( "+s5g+" C) = "
+     s10=x.toPrecision(4)+ " J ";
+     final=""+s10;
+     //x=y/z;
+     break;
+
+
+
+
+/////
+
+/*
+    case 3: //  efficiency of lever x = Wo / Wi = Fd o / Fd i
+    s2="  If you push with down "+s6+" m down on a lever with a force of "+s5g+" N,  ";
+    s3="and it raises a "+s5g+" N object to a height of "+s5+" m: enter the effiency as a percent.";
+    //s4="";
+    x=100.0*c/d; // mass is answer...x in input answer...
+    hint="W out = ("+s5f+" N)(  "+s5+" m) and W in = ("+s5g+" N)( "+s6+" m) ";
+    s10=x.toPrecision(3)+ " % ";
+    final="efficiency = "+c+" J / "+d+" J = "+s10;
+    break;
+
+    case 4: //    case 1, find Wout...  e = x / d, x=e*d
+      //solve for accel a=F/m
+      s2="A pulley with efficiency of "+s5e+" % will require an input of "+s5d+" J of work.";
+      s3="How much work will you get out of the machine? ";
+
+      x=d*e/100.0;
+      hint=s5e+"% =  Wout /  "+s5d+".."
+      s10=x.toPrecision(4)+ " J ";
+      final=""+s10;
+      //x=y/z;
+      break;
+*/
+
+  }
+
+
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+  s13 = "code "+d;
+
+  //repaint(); *** ERROR FOR SOME REASON????
+}
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+
+  repaint();
+}
+
+function repaint()
+{
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+  g.fillText(s13,20,210);
+
+}
+
+var canvas = document.getElementById("square");
+repaint();
+
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n IPC14.html");
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+</body>
+
+</html>

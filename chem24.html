@@ -1,0 +1,839 @@
+<html>
+<title>
+
+document.write("chem24 wip - mole mole stoichiometry");
+
+</title>
+
+<body>
+<canvas id="square" width=600 height=300></canvas>
+
+<script>
+
+/*
+chem29.html - Combined Gas Law PV/T = PV/T
+***
+// declare variables.....
+*/
+
+var problem=1;
+var tries=1;
+var type=1;
+var typeabc=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "Stoichiometry";
+var s3 = "";//WOWEE!";
+var s4="Stoichiometry";
+var s5, s6, s7, s8, s9, s10, s11, s12,s5c,s5d,s5e,s5f; //format decimals
+s5c=s5d=s5e=s5f=s7=ss=ss1=ss2="";
+let order=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+//var order = 10;
+//var order = [1,2,3,4,5,6,7,8,9,10];
+
+// restart(); - nope did not work...
+// s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+
+var x,y,z,w,c,d,e,f,R,T1,T2;
+var pe=0.0;
+R=0.08206;
+
+//newVals code goes here for problem 1..
+
+/*var y=Math.ceil(Math.random()*100)/10+1;
+s5=y.toPrecision(3);
+var z=Math.ceil(Math.random()*100)/10+1;
+s6=z.toPrecision(3);
+s2="x = "+s5+" + "+s6;
+*/
+
+newVals(); //Problem 1 start
+shuffle();
+//repaint();
+//restart();
+//x=y+z;
+
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b)
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.011)
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+      //s1="If you score is good, have your teacher record it."
+      //s2="If you want to restart, press that button below."
+      //repaint();
+    }
+  else
+{//keep working
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert(" try again..."+hint)
+          s4="try again...";
+          s7=hint;
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert("answer was "+final);
+            //tries=1;
+            s7="answer was "+final;
+            s4="next...";
+            problem++;
+            newVals();
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}//end eval()
+function shuffle() // looked up on internet??
+{
+   order=order.sort(()=> Math.random()-0.5);
+}
+
+function newVals()
+{
+  //var x,y,z,w,a,b,c;
+
+  //shuffle();
+
+  tries=1;
+  type=Math.ceil(Math.random()*3); //4 types problems....
+
+  //type=1;
+  //typeabc=Math.ceil(Math.random()*4);
+
+  y=Math.ceil(Math.random()*200)/100 +1; //y=n 1-3
+  s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*50)/10+1; // z=P 1.0-6.0
+  s6=z.toPrecision(3);
+  c=Math.ceil(Math.random()*200)/5+1; // c=V 1.0-41.0
+  s5c =c.toPrecision(3);
+  d=Math.ceil(Math.random()*400)/2+50; // d=T 50.0-250.0 celcius
+  s5d=d.toPrecision(3);
+  e=Math.ceil(Math.random()*50)/10+5; // e=P 5.0-10.0
+  s5e=e.toPrecision(3);
+  f=Math.ceil(Math.random()*400)/2+250; // f=T  250.0-450.0 celcius
+  s5f=f.toPrecision(3);
+
+  //    y..s5    z..s6  c..s5c   d..s5d  e..s5e f..s5f
+  //s9=x.toPrecision(3);
+  //s7="n="+s5+" P="+s6+" V= "+s5c+" T="+s5d;
+
+
+                    //switch(order[problem-1])
+  //typeabc=15;
+  //type=3;
+  //switch(typeabc)
+  switch(order[problem-1])
+  {
+    case 1: //methane combustion
+
+    if(type==1)  //1:2
+    {
+      s2="1. Combustion of methane....  If "+s6+" moles of methane";
+      s3="reacts, how many moles of oxygen are required?";
+      //s4="";
+      x=2*z;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="1:2 ratio"
+      final=""+s6+" moles of methane produces "+s10+" oxygen";
+    }
+    else if(type==2)  //1:1
+    {
+      s2="1. Combustion of methane....  If "+s6+" moles of methane";
+      s3="reacts, how many moles of carbon dioxide are produced?";
+      //  s4="";
+      x=z;
+      s10=x.toPrecision(3)+ " moles";
+      hint="1:1 ratio"
+      final="equal moles are formed,  "+s6+" moles of methane produces "+s10+"  CO2";
+    }
+    else //2:1
+    {
+      s2="1. Combustion of methane....  If "+s6+" moles of oxygen";
+      s3="reacts, how many moles of carbon dioxide are produced?";
+      //  s4="";
+      x=z/2;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="2:1 ratio"
+      final=""+s6+" moles of oxygen produces "+s10+" carbon dioxide";
+    }
+
+    break;
+/////////////////
+    case 2: // ethane combustion
+
+    if(type==1)  //2:7
+    {
+      s2="2. Combustion of ethane....  If "+s6+" moles of ethane";
+      s3="reacts, how many moles of oxygen are required?";
+    //    s4="";
+      x=7.0*z/2.0;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="2:7 ratio"
+      final=""+s6+" moles of ethane produces "+s10+" oxygen";
+    }
+    else if(type==2)  //1:2, or 2:4
+    {
+      s2="2. Combustion of ethane....  If "+s6+" moles of ethane";
+      s3="reacts, how many moles of carbon dioxide are produced?";
+    //    s4="";
+      x=2*z;
+      s10=x.toPrecision(3)+ " moles";
+      hint="2:4 or 1:2 ratio"
+      final=" "+s6+" moles of ethane produces "+s10+"  CO2";
+    }
+    else // 7:4
+    {
+      s2="2. Combustion of ethane....  If "+s6+" moles of oxygen";
+      s3="reacts, how many moles of carbon dioxide are produced?";
+    //    s4="";
+      x=z*4.0/7.0;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="7:4 ratio"
+      final=""+s6+" moles of oxygen produces "+s10+" carbon dioxide";
+    }
+    break;
+
+///////////////////
+
+  case 3: // propane combustion
+
+  if(type==1)  //1:5
+  {
+    s2="3. Combustion of propane....  If "+s6+" moles of propane";
+    s3="reacts, how many moles of oxygen are required?";
+    //  s4="";
+    x=5.0*z;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="1:5 ratio"
+    final=""+s6+" moles of propane produces "+s10+" oxygen";
+  }
+  else if(type==2)  //1:3
+  {
+    s2="3. Combustion of propane....  If "+s6+" moles of propane";
+    s3="reacts, how many moles of carbon dioxide are produced?";
+    //  s4="";
+    x=3*z;
+    s10=x.toPrecision(3)+ " moles";
+    hint="1:3 ratio"
+    final=" "+s6+" moles of propane produces "+s10+"  CO2";
+  }
+  else // 5:3
+  {
+    s2="3. Combustion of propane....  If "+s6+" moles of oxygen";
+    s3="reacts, how many moles of carbon dioxide are produced?";
+    //  s4="";
+    x=z*3.0/5.0;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="5:3 ratio"
+    final=""+s6+" moles of oxygen produces "+s10+" carbon dioxide";
+  }
+  break;
+
+///////////////////
+
+  case 4: // KClO3 decomp.. 2:2:3
+
+  if(type==1)  //2:3
+  {
+    s2="4. KClO3 decomposes....  If "+s6+" moles of KClO3";
+    s3="reacts, how many moles of oxygen are produced?";
+    //  s4="";
+    x=z*3.0/2.0;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="2:3 ratio"
+    final=""+s6+" moles of KClO3 produces "+s10+" oxygen";
+  }
+  else if(type==2)  //2:3
+  {
+    s2="4. KClO3 decomposes....  If "+s6+" moles of KCl";
+    s3="are produced, how many moles of oxygen are also produced?";
+    //  s4="";
+    x=z*3.0/2.0;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="2:3 ratio"
+    final=""+s6+" moles of KCl produced with "+s10+" oxygen";
+  }
+  else // 2:2
+  {
+    s2="4. KClO3 decomposes....  If "+s6+" moles of KCl";
+    s3="are produced, how many moles of KClO3 was required?";
+    //  s4="";
+    x=z;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="2:2 ratio, equal moles :)"
+    final=""+s6+" moles of KClO3 produces "+s10+" KCl";
+  }
+  break;
+////////////////////////
+
+
+  case 5: // HgO decomp.. 2:2:1
+
+  if(type==1)  //2:1
+  {
+    s2="5. HgO decomposes....  If "+s6+" moles of HgO";
+    s3="reacts, how many moles of oxygen are produced?";
+    //  s4="";
+    x=z*1.0/2.0;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="2:1 ratio "
+    final=""+s6+" moles of HgO produces "+s10+" oxygen";
+  }
+  else if(type==2)  //2:1
+  {
+    s2="5. HgO decomposes....  If "+s6+" moles of Hg";
+    s3="are produced, how many moles of oxygen are also produced?";
+    //  s4="";
+    x=z*1.0/2.0;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="2:1 ratio"
+    final=""+s6+" moles of Hg produced with "+s10+" oxygen";
+  }
+  else // 2:2
+  {
+    s2="5. HgO decomposes....  If "+s6+" moles of Hg";
+    s3="are produced, how many moles of HgO was required?";
+    //  s4="";
+    x=z;
+    s10=x.toPrecision(3)+ " moles ";
+    hint="2:2 ratio, equal moles :)"
+    final=""+s6+" moles of HgO produces "+s10+" Hg";
+  }
+  break;
+
+///////////////////
+    case 6: // H2CO3 decomp.. 1:1:1
+
+    if(type==1)  //1:1
+    {
+      s2="6. H2CO3 decomposes....  If "+s6+" moles of carbonic acid";
+      s3="reacts, how many moles of CO2 are produced?";
+    //    s4="";
+      x=z;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="1:1 ratio equal moles :)"
+      final=""+s6+" moles of H2CO3 produces "+s10+" CO2";
+    }
+    else if(type==2)  //1:1
+    {
+      s2="6. H2CO3 decomposes....  If "+s6+" moles of carbonic acid";
+      s3="reacts, how many moles of water are also produced?";
+      //  s4="";
+      x=z;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="1:1 ratio, equal moles :)"
+      final=""+s6+" moles of H2CO3 produced with "+s10+" water";
+    }
+    else // 1:1
+    {
+      s2="6. H2CO3 decomposes....  If "+s6+" moles of CO2";
+      s3="are produced, how many moles of water was also produced?";
+      //  s4="";
+      x=z;
+      s10=x.toPrecision(3)+ " moles ";
+      hint="1:1 ratio, equal moles :)"
+      final=""+s6+" moles of HgO produces "+s10+" Hg";
+    }
+    break;
+
+/////////////////////
+case 7: // acid base  2 NaOH + H2SO4 decomp.. 2:2:1
+
+if(type==1)  //2:1
+{
+  s2="7. NaOH + H2SO4 ....  If "+s6+" moles of NaOH";
+  s3="reacts, how many moles of sulfuric acid are required?";
+  //  s4="";
+  x=z*1.0/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:1 ratio "
+  final=""+s6+" moles of NaOH react with "+s10+" sulfuric acid";
+}
+else if(type==2)  //2:1
+{
+  s2="7. NaOH + H2SO4 ....  If "+s6+" moles of NaOH";
+  s3="reacts, how many moles of sodium sulfate are also produced?";
+//    s4="";
+  x=z*1.0/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:1 ratio"
+  final=""+s6+" moles of NaOH produces  "+s10+" sodium sulfate";
+}
+else // 1:2
+{
+  s2="7. NaOH + H2SO4 ....  If "+s6+" moles of sulfuric acid";
+  s3="react, how many moles of water are produced?";
+  //  s4="";
+  x=z*2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:2 ratio..."
+  final=""+s6+" moles of sulfuric acid produces "+s10+" water";
+}
+break;
+
+/////////////////////
+case 8: // ppt double repl.  MgCl2 + 2 AgNO3 == H2SO4 decomp.. 1:2:1:2
+
+if(type==1)  // 1:2
+{
+  s2="8. MgCl2 + AgNO3 ....  If "+s6+" moles of magnesium chloride";
+  s3="reacts, how many moles of silver nitrate are required?";
+  //  s4="";
+  x=z*2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:2 ratio "
+  final=""+s6+" moles of MgCl2 react with "+s10+" AgNO3";
+}
+else if(type==2)  // 1:2
+{
+  s2="8. MgCl2 + AgNO3 ....  If "+s6+" moles of magnesium chloride";
+  s3="reacts, how many moles of AgCl are produced?";
+  //  s4="";
+  x=z*2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:2 ratio"
+  final=""+s6+" moles of MgCl2 produces  "+s10+" AgCl ";
+}
+else // 2:1
+{
+  s2="8. MgCl2 + AgNO3 ....  If "+s6+" moles of silver nitrate";
+  s3="react, how many moles of magnesium nitrate are produced?";
+  //  s4="";
+  x=z/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:1 ratio..."
+  final=""+s6+" moles of silver nitrate produces "+s10+" magnesium nitrate ";
+}
+break;
+
+/////////////////////
+case 9: // acid base  Al(OH)3 + 3 HCl ==   1:3:1:3
+
+if(type==1)  // 1:3
+{
+  s2="9. Al(OH)3 + HCl ....  If "+s6+" moles of aluminum hydroxide";
+  s3="reacts, how many moles of HCl are required?";
+  //  s4="";
+  x=z*3.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:3 ratio "
+  final=""+s6+" moles of aluminum hydroxide react with "+s10+" HCl";
+}
+else if(type==2)  // 1:1
+{
+  s2="9. Al(OH)3 + HCl ....  If "+s6+" moles of aluminum hydroxide";
+  s3="reacts, how many moles of aluminum chloride are produced?";
+  //  s4="";
+  x=z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:1 ratio, moles equal :)"
+  final=""+s6+" moles of aluminum hydroxide produces  "+s10+" AlCl3 ";
+}
+else // 3:1
+{
+  s2="9. Al(OH)3 + HCl ....  If "+s6+" moles of HCl";
+  s3="react, how many moles of aluminum chloride are produced?";
+  //  s4="";
+  x=z/3.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="3:1 ratio..."
+  final=""+s6+" moles of HCl produces "+s10+" AlCl3 ";
+}
+break;
+
+/////////////////////
+case 10: // synthesis   N2 + 3 H2 == 2 NH3    1:3:2
+
+if(type==1)  // 1:3
+{
+  s2="10. N2 + H2 ....  If "+s6+" moles of nitrogen";
+  s3="reacts, how many moles of hydrogen are required?";
+//    s4="";
+  x=z*3.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:3 ratio "
+  final=""+s6+" moles of nitrogen react with "+s10+" hydrogen";
+}
+else if(type==2)  // 1:2
+{
+  s2="10. N2 + H2 ....  If "+s6+" moles of nitrogen";
+  s3="reacts, how many moles of ammonia are produced?";
+  //  s4="";
+  x=2*z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:2 ratio "
+  final=""+s6+" moles of nitrogen produces  "+s10+" ammonia ";
+}
+else // 3:2
+{
+  s2="10. N2 + H2 ....  If "+s6+" moles of hydrogen";
+  s3="react, how many moles of ammonia are produced?";
+  //  s4="";
+  x=z*2.0/3.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="3:2 ratio..."
+  final=""+s6+" moles of HCl produces "+s10+" AlCl3 ";
+}
+break;
+
+/////////////////////
+case 11: // 11...synthesis   2 H2 + O2 == 2 H2O    2:1:2
+
+if(type==1)  // 2:1
+{
+  s2="11. H2 + O2 ....  If "+s6+" moles of hydrogen";
+  s3="reacts, how many moles of oxygen are required?";
+  //  s4="";
+  x=z/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:1 ratio "
+  final=""+s6+" moles of hydrogen react with "+s10+" oxygen";
+}
+else if(type==2)  // 1:2
+{
+  s2="11. H2 + O2 ....  If "+s6+" moles of oxygen";
+  s3="reacts, how many moles of water are produced?";
+  //  s4="";
+  x=2*z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:2 ratio "
+  final=""+s6+" moles of oxygen produces  "+s10+" water ";
+}
+else // 1:1
+{
+  s2="11. H2 + O2 ....  If "+s6+" moles of hydrogen";
+  s3="react, how many moles of water are produced?";
+  ///  s4="";
+  x=z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:1 ratio moles equal :)"
+  final=""+s6+" moles of hydrogen produces "+s10+" water ";
+}
+break;
+
+/////////////////////
+case 12: // 12...synthesis   4 Ag2 + O2 == 2 Ag2O    4:1:2
+
+if(type==1)  // 4:1
+{
+  s2="12. Ag + O2 ....  If "+s6+" moles of silver";
+  s3="reacts, how many moles of oxygen are required?";
+  //  s4="";
+  x=z/4.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="4:1 ratio "
+  final=""+s6+" moles of silver react with "+s10+" oxygen";
+}
+else if(type==2)  // 4:2 or 2:1
+{
+  s2="12. Ag + O2 ....  If "+s6+" moles of silver";
+  s3="reacts, how many moles of silver oxide are produced?";
+//    s4="";
+  x=z/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="4:2 ratio "
+  final=""+s6+" moles of silver produces  "+s10+" silver oxide ";
+}
+else // 1:2
+{
+  s2="12. Ag + O2 ....  If "+s6+" moles of oxygen";
+  s3="react, how many moles of silver oxide are produced?";
+  //  s4="";
+  x=z*2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:2 ratio moles "
+  final=""+s6+" moles of oxygen produces "+s10+" silver oxide ";
+}
+break;
+
+/////////////////////
+case 13: // 13...SR   2HCl + Mg == MgCl2 + H2     2:1:1:1
+
+if(type==1)  // 2:1
+{
+  s2="13. HCl + Mg ....  If "+s6+" moles of HCl";
+  s3="reacts, how many moles of Mg are required?";
+  //  s4="";
+  x=z/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:1 ratio "
+  final=""+s6+" moles of HCl react with "+s10+" Mg";
+}
+else if(type==2)  //  2:1
+{
+  s2="13. HCl + Mg ....  If "+s6+" moles of HCl";
+  s3="reacts, how many moles of magnesium chloride are produced?";
+  //  s4="";
+  x=z/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:1 ratio "
+  final=""+s6+" moles of HCl produces  "+s10+" magnesium chloride ";
+}
+else // 1:1
+{
+  s2="13. HCl + Mg ....  If "+s6+" moles of Mg";
+  s3="react, how many moles of hydrogen are produced?";
+  //  s4="";
+  x=z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:1 ratio.. equal moles :) "
+  final=""+s6+" moles of Mg produces "+s10+" hydrogen ";
+}
+break;
+
+/////////////////////
+case 14: // 14...SR   Zn + H2SO4 == ZnSO4 + H2     1:1:1:1
+
+if(type==1)  // 1:1
+{
+  s2="14. Zn + H2SO4 ....  If "+s6+" moles of Zn";
+  s3="reacts, how many moles of sulfuric acid are required?";
+  //  s4="";
+  x=z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:1 ratio .. equal moles :) "
+  final=""+s6+" moles of Zn react with "+s10+" sulfuric acid";
+}
+else if(type==2)  //  1:1
+{
+  s2="14. Zn + H2SO4 ....  If "+s6+" moles of Zn";
+  s3="reacts, how many moles of zinc sulfate are produced?";
+  //  s4="";
+  x=z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:1 ratio .. equal moles :) "
+  final=""+s6+" moles of Zn produces  "+s10+" zinc sulfate ";
+}
+else // 1:1
+{
+  s2="14. Zn + H2SO4 ....  If "+s6+" moles of Zn";
+  s3="react, how many moles of hydrogen are produced?";
+  //  s4="";
+  x=z;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="1:1 ratio.. equal moles :) "
+  final=""+s6+" moles of Zn produces "+s10+" hydrogen ";
+}
+break;
+
+
+///////////////////// not yet
+case 15: // 15...SR  6 HCl + 2Al  == 2 AlCl3 + 3 H2     6:2:2:3
+
+if(type==1)  // 6:2 or 3:1
+{
+  s2="15. HCl + Al ....  If "+s6+" moles of HCl";
+  s3="reacts, how many moles of Al are required?";
+  //  s4="";
+  x=z/3.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="6:2 or 3:1 ratio... "
+  final=""+s6+" moles of HCl react with "+s10+" Al";
+}
+else if(type==2)  //  6:2 or 3:1
+{
+  s2="15. HCl + Al ....  If "+s6+" moles of HCl";
+  s3="reacts, how many moles of aluminum chloride are produced?";
+  //  s4="";
+  x=z/3.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="6:2 or 3:1 ratio "
+  final=""+s6+" moles of HCl produces  "+s10+" aluminum chloride ";
+}
+else // 2:3
+{
+  s2="15. HCl + Al ....  If "+s6+" moles of Al";
+  s3="react, how many moles of hydrogen are produced?";
+  //  s4="";
+  x=z*3.0/2.0;
+  s10=x.toPrecision(3)+ " moles ";
+  hint="2:3 ratio..  "
+  final=""+s6+" moles of Al produces "+s10+" hydrogen ";
+}
+break;
+
+
+
+
+
+
+
+
+/*
+    s2="ethane "+order; //"  A gas at "+s5d+" \u00b0 C has a volume of "+s5c+" L is heated ";
+    s3=" to "+s5f+" \u00b0 C at constant pressure. "
+    s4="Find the new volume in L."
+    x=(f+273)*c/(d+273); //
+    s10=x.toPrecision(3)+ " L";
+    hint="V/T=V/T , temp in Kelvin...";
+    T1=d+273;
+    T2=f+273;
+    ss1=T1.toPrecision(3);
+    ss2=T2.toPrecision(3);
+    final=" V = ("+s5c+" L) * ("+T2+" K) / ("+T1+" K)  and V = "+s10;
+*/
+    //s4+="cheat="+s10;
+
+
+
+
+  }
+
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+
+
+  //repaint(); *** ERROR FOR SOME REASON????
+}
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+  shuffle();
+  repaint();
+}//end newVals()
+
+function repaint()
+{
+  //
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+
+}//end repaint()
+
+var canvas = document.getElementById("square");
+repaint();
+
+/*canvas.width=canvas.width; //clears canvas for iterations...
+
+//context.drawString("Yippee",20,80);
+
+*/
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n chem24.html");
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+
+
+
+
+</body>
+
+</html>

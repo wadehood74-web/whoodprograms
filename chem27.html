@@ -1,0 +1,871 @@
+<html>
+<title>
+
+document.write("chem27 - %yield... mass to mass stoichiometry");
+
+</title>
+
+<body>
+<canvas id="square" width=600 height=300></canvas>
+
+<script>
+
+/*
+chem27.html - %yield
+***
+// declare variables.....
+*/
+
+var problem=1;
+var tries=1;
+var type=1;
+var typeabc=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "Stoichiometry";
+var s3 = "";//WOWEE!";
+var s4="% yield - mass Stoichiometry";
+var s5, s6, s7, s8, s9, s10, s11, s12,s5c,s5d,s5e,s5f,s5g; //format decimals
+s5c=s5d=s5e=s5f=s5g=s7=ss=ss1=ss2="";
+let order=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+//var order = 10;
+//var order = [1,2,3,4,5,6,7,8,9,10];
+
+// restart(); - nope did not work...
+// s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+
+var x,y,z,w,c,d,e,f,g,R,T1,T2;
+var pe=0.0;
+R=0.08206;
+
+//newVals code goes here for problem 1..
+
+/*var y=Math.ceil(Math.random()*100)/10+1;
+s5=y.toPrecision(3);
+var z=Math.ceil(Math.random()*100)/10+1;
+s6=z.toPrecision(3);
+s2="x = "+s5+" + "+s6;
+*/
+
+newVals(); //Problem 1 start
+shuffle();
+//repaint();
+//restart();
+//x=y+z;
+
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b)
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.011)
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+      //s1="If you score is good, have your teacher record it."
+      //s2="If you want to restart, press that button below."
+      //repaint();
+    }
+  else
+{//keep working
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert(" try again..."+hint)
+          s4="try again...";
+          s7=hint;
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert("answer was "+final);
+            //tries=1;
+            s7="answer was "+final;
+            s4="next...";
+            problem++;
+            newVals();
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}//end eval()
+function shuffle() // looked up on internet??
+{
+   order=order.sort(()=> Math.random()-0.5);
+}
+
+function newVals()
+{
+  //var x,y,z,w,a,b,c;
+
+  //shuffle();
+
+  tries=1;
+  type=Math.ceil(Math.random()*3); //4 types problems....
+
+  //type=1;
+  //typeabc=Math.ceil(Math.random()*4);
+
+  y=Math.ceil(Math.random()*200)/100 +1; //y=n 1-3
+  s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*500)/10+10; // z= mass reactant 10.0-60.0
+  s6=z.toPrecision(3);
+  c=Math.ceil(Math.random()*200)/5+1; // c=V 1.0-41.0
+  s5c =c.toPrecision(3);
+  d=Math.ceil(Math.random()*400)/2+50; // d=T 50.0-250.0 celcius
+  s5d=d.toPrecision(3);
+  e=Math.ceil(Math.random()*50)/10+5; // e=P 5.0-10.0
+  s5e=e.toPrecision(3);
+  f=Math.ceil(Math.random()*40)+50; // f=%yield  50--90
+  s5f=f.toPrecision(3);
+
+  //    y..s5    z..s6  c..s5c   d..s5d  e..s5e f..s5f
+  //s9=x.toPrecision(3);
+  //s7="n="+s5+" P="+s6+" V= "+s5c+" T="+s5d;
+
+
+                    //switch(order[problem-1])
+  //typeabc=6;
+  typeabc=Math.ceil(Math.random()*9); //6 now... types problems....
+  type=problem%2 +1;//typeabc=9; //wip
+
+  //type=2; // just first option..
+
+  //type=3;
+  //switch(typeabc)
+  //switch(order[problem-1])
+  switch(typeabc)
+  {
+    case 1: //methane combustion--YEP
+
+
+    if(type==1)  //1:1  yep
+    {
+
+      c=z/16.0; //moles methane
+      s5c =c.toPrecision(3);
+      d=c; // mol theor. CO2
+      s5d=d.toPrecision(3);
+      e=d*f/100; // mol actual product
+      s5e=e.toPrecision(3);
+      g=e*44.0; // act g CO2
+      s5g=g.toPrecision(3);
+      y=d*44; // theor g CO2
+      s5=y.toPrecision(3);
+
+      //s4="find the percent yield...";
+      s4="";
+
+      x=f; // find percent yield
+      s10=x.toPrecision(3)+ " % ";
+
+      s2="1. Combustion of methane....  If "+s6+" g of methane reacts and ";
+      s3="produces "+s5g+" g of carbon dioxide,  find the percent yield";
+
+      hint="1:1 mole ratio, so "+s5c+" moles methane should produce "+s5d+" moles carbon dioxide..."
+      final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+    }
+    else //2:1    yep.
+    {
+
+      c=z/16.0; //moles methane
+      s5c =c.toPrecision(3);
+      d=c; // mol theor. CO2
+      s5d=d.toPrecision(3);
+      e=d*f/100; // mol actual product
+      s5e=e.toPrecision(3);
+      g=e*44.0; // act g CO2
+      s5g=g.toPrecision(3);
+      y=d*44; // theor g CO2
+      s5=y.toPrecision(3);
+
+      //s4="find the percent yield...";
+      s4="";
+
+      x=g; // find percent yield
+      s10=x.toPrecision(3)+ " g ";
+
+      s2="**** 1. Combustion of methane....  If "+s6+" g of methane reacts and ";
+      s3="the reaction has "+s5f+"% yield,  find the actual mass of CO2 produced";
+
+      hint="1:1 mole ratio, so "+s5c+" moles methane should produce "+s5d+" moles carbon dioxide..."
+      final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+
+    }
+
+    break;
+/////////////////
+    case 2: // ethane combustion    yep
+
+    if(type==1)  //2:7:4:6
+    { //dun!
+
+      c=z/30.0; //moles ethane
+      s5c =c.toPrecision(3);
+      d=2*c; // mol theor. CO2
+      s5d=d.toPrecision(3);
+      e=d*f/100; // mol actual product
+      s5e=e.toPrecision(3);
+      g=e*44.0; // act g CO2
+      s5g=g.toPrecision(3);
+      y=d*44; // theor g CO2
+      s5=y.toPrecision(3);
+
+      //s4="find the percent yield...";
+      s4="";
+
+      x=f; // find percent yield
+      s10=x.toPrecision(3)+ " % ";
+
+      s2="2. Combustion of ethane....  If "+s6+" g of ethane reacts and ";
+      s3="produces "+s5g+" g of carbon dioxide,  find the percent yield";
+
+      hint="2:4 mole ratio, so "+s5c+" moles ethane should produce "+s5d+" moles carbon dioxide..."
+      final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+    }
+    else  //1:2, or 2:4   yep.. test more then test...
+    {
+
+      c=z/30.0; //moles ethane
+      s5c =c.toPrecision(3);
+      d=2*c; // mol theor. CO2
+      s5d=d.toPrecision(3);
+      e=d*f/100; // mol actual product
+      s5e=e.toPrecision(3);
+      g=e*44.0; // act g CO2
+      s5g=g.toPrecision(3);
+      y=d*44; // theor g CO2
+      s5=y.toPrecision(3);
+
+      //s4="find the percent yield...";
+      s4="";
+
+      x=g; // find percent yield
+      s10=x.toPrecision(3)+ " g ";
+
+      s2="** 2. Combustion of ethane....  If "+s6+" g of ethane reacts and ";
+      s3="the reaction has "+s5f+"% yield,  find the actual mass of CO2 produced";
+
+      hint="2:4 mole ratio, so "+s5c+" moles ethane should produce "+s5d+" moles carbon dioxide..."
+      final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+
+
+    }
+
+    break;
+
+///////////////////
+
+  case 3: // ethane ..water 2:6...yep
+
+  if(type==1)
+  {
+
+    c=z/30.0; //moles ethane
+    s5c =c.toPrecision(3);
+    d=3*c; // mol theor. CO2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*18.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*18.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=f; // find percent yield
+    s10=x.toPrecision(3)+ " % ";
+
+    s2="2. Combustion of ethane....  If "+s6+" g of ethane reacts and ";
+    s3="produces "+s5g+" g of water,  find the percent yield";
+
+    hint="2:6 mole ratio, so "+s5c+" moles ethane should produce "+s5d+" moles water..."
+    final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+
+  }
+
+  else // 2:6   ....wip
+  {
+
+    c=z/30.0; //moles ethane
+    s5c =c.toPrecision(3);
+    d=3*c; // mol theor. CO2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*18.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*18.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=g; // find percent yield
+    s10=x.toPrecision(3)+ " g ";
+
+    s2="** 2. Combustion of ethane....  If "+s6+" g of ethane reacts and ";
+    s3="the reaction has "+s5f+"% yield,  find the actual mass of water produced";
+
+    hint="2:6 mole ratio, so "+s5c+" moles ethane should produce "+s5d+" moles water..."
+    final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+
+  }
+  break;
+
+///////////////////
+
+  case 4: // KClO3 decomp.. YEP..
+
+  if(type==1)  //2:3
+  {
+    z*=10;
+    s6=z.toPrecision(3);
+    c=z/122.55; //moles KClO3
+    s5c =c.toPrecision(3);
+    d=1.5*c; // mol theor. O2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*32.0; // act g O2
+    s5g=g.toPrecision(3);
+    y=d*32.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=f; // find percent yield
+    s10=x.toPrecision(3)+ " % ";
+
+    s2="3. Decomp of KClO3....  If "+s6+" g of KClO3 reacts and ";
+    s3="produces "+s5g+" g of oxygen,  find the percent yield";
+
+    hint="2:3 mole ratio, so "+s5c+" moles KClO3 should produce "+s5d+" moles oxygen..."
+    final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+  }
+  else// if(type==2)  next..... YEP..
+  {
+
+    z*=10;
+    s6=z.toPrecision(3);
+    c=z/122.55; //moles KClO3
+    s5c =c.toPrecision(3);
+    d=1.5*c; // mol theor. O2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*32.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*32.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=g; // find percent yield
+    s10=x.toPrecision(3)+ " g ";
+
+    s2="3. Decomp of KClO3....  If "+s6+" g of KClO3 reacts and ";
+    s3="the reaction has "+s5f+"% yield,  find the actual mass of oxygen produced";
+
+    hint="2:3 mole ratio, so "+s5c+" moles KClO3 should produce "+s5d+" moles oxygen..."
+    final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+  }
+
+  break;
+////////////////////////
+
+case 9: // KClO3 decomp.. YEP..
+
+if(type==1)  //2:2
+{
+  z*=10;
+  s6=z.toPrecision(3);
+  c=z/122.55; //moles KClO3
+  s5c =c.toPrecision(3);
+  d=1.0*c; // mol theor. O2
+  s5d=d.toPrecision(3);
+  e=d*f/100; // mol actual product
+  s5e=e.toPrecision(3);
+  g=e*74.55; // act g O2
+  s5g=g.toPrecision(3);
+  y=d*74.55; // theor g CO2
+  s5=y.toPrecision(3);
+
+  //s4="find the percent yield...";
+  s4="";
+
+  x=f; // find percent yield
+  s10=x.toPrecision(3)+ " % ";
+
+  s2="3. Decomp of KClO3....  If "+s6+" g of KClO3 reacts and ";
+  s3="produces "+s5g+" g of KCl,  find the percent yield";
+
+  hint="2:2 mole ratio, so "+s5c+" moles KClO3 should produce "+s5d+" moles KCl..."
+  final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+}
+else// if(type==2)  next..... YEP..
+{
+
+  z*=10;
+  s6=z.toPrecision(3);
+  c=z/122.55; //moles KClO3
+  s5c =c.toPrecision(3);
+  d=1.0*c; // mol theor. O2
+  s5d=d.toPrecision(3);
+  e=d*f/100; // mol actual product
+  s5e=e.toPrecision(3);
+  g=e*74.55; // act g CO2
+  s5g=g.toPrecision(3);
+  y=d*74.55; // theor g CO2
+  s5=y.toPrecision(3);
+
+  //s4="find the percent yield...";
+  s4="";
+
+  x=g; // find percent yield
+  s10=x.toPrecision(3)+ " g ";
+
+  s2="3. Decomp of KClO3....  If "+s6+" g of KClO3 reacts and ";
+  s3="the reaction has "+s5f+"% yield,  find the actual mass of KCl produced";
+
+  hint="2:2 mole ratio, so "+s5c+" moles KClO3 should produce "+s5d+" moles KCl..."
+  final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+}
+
+break;
+////////////////////////
+
+
+  case 5: // H2CO3 decomp.. 1:1:1   YEP!
+
+  if(type==1)  //1:1  yep..
+  {
+
+    z*=5;
+    s6=z.toPrecision(3);
+    c=z/62.0; //moles KClO3
+    s5c =c.toPrecision(3);
+    d=1.0*c; // mol theor. O2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*44.0; // act g O2
+    s5g=g.toPrecision(3);
+    y=d*44.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=f; // find percent yield
+    s10=x.toPrecision(3)+ " % ";
+
+    s2="*6. H2CO3 decomposes....  If "+s6+" grams of H2CO3";
+    s3="produces "+s5g+" g of carbon dioxide,  find the percent yield";
+
+    hint="1:1 mole ratio, so "+s5c+" moles H2CO3 should produce "+s5d+" moles CO2..."
+    final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+  }
+
+  else // 1:1 yep yep
+  {
+    z*=5;
+    s6=z.toPrecision(3);
+    c=z/62.0; //moles H2CO3
+    s5c =c.toPrecision(3);
+    d=1.0*c; // mol theor. CO2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*44.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*44.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=g; // find percent yield
+    s10=x.toPrecision(3)+ " g ";
+
+    s2="*6. H2CO3 decomposes....  If "+s6+" grams of H2CO3";
+    s3="the reaction has "+s5f+"% yield,  find the actual mass of CO2 produced";
+
+    hint="1:1 mole ratio, so "+s5c+" moles H2CO3 should produce "+s5d+" moles CO2..."
+    final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+  }
+  break;
+
+//
+
+
+////////////// working now
+
+  case 6: // H2CO3 decomp.. 1:1:1  working now
+
+  if(type==1)  //1:1  working....
+  {
+
+    z*=5;
+    s6=z.toPrecision(3);
+    c=z/62.0; //moles H2CO3
+    s5c =c.toPrecision(3);
+    d=1.0*c; // mol theor. water
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*18.0; // act g water
+    s5g=g.toPrecision(3);
+    y=d*18.0; // theor g water
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=f; // find percent yield
+    s10=x.toPrecision(3)+ " % ";
+
+    s2="*6. H2CO3 decomposes....  If "+s6+" grams of H2CO3";
+    s3="produces "+s5g+" g of water,  find the percent yield";
+
+    hint="1:1 mole ratio, so "+s5c+" moles H2CO3 should produce "+s5d+" moles water..."
+    final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+  }
+
+  else // 1:1 working......
+  {
+    z*=5;
+    s6=z.toPrecision(3);
+    c=z/62.0; //moles H2CO3
+    s5c =c.toPrecision(3);
+    d=1.0*c; // mol theor. CO2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*18.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*18.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=g; // find percent yield
+    s10=x.toPrecision(3)+ " g ";
+
+    s2="*6. H2CO3 decomposes....  If "+s6+" grams of H2CO3";
+    s3="the reaction has "+s5f+"% yield,  find the actual mass of water produced";
+
+    hint="1:1 mole ratio, so "+s5c+" moles H2CO3 should produce "+s5d+" moles water..."
+    final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+  }
+  break;
+
+//
+
+////////////// working now
+
+  case 7: // N2 + 3 H2 == 2 NH3  WIP NOW.....
+
+  if(type==1)  //1:1  working....
+  {
+
+    z*=5;
+    s6=z.toPrecision(3);
+    c=z/28.0; //moles H2CO3
+    s5c =c.toPrecision(3);
+    d=2.0*c; // mol theor. water
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*17.0; // act g water
+    s5g=g.toPrecision(3);
+    y=d*17.0; // theor g water
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=f; // find percent yield
+    s10=x.toPrecision(3)+ " % ";
+
+    s2="*10. N2 + H2 ....  If "+s6+" grams of nitrogen";
+    s3="produces "+s5g+" g of ammonia,  find the percent yield";
+
+    hint="1:2 mole ratio, so "+s5c+" moles N2 should produce "+s5d+" moles NH3..."
+    final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+  }
+
+  else // 1:1 working......
+  {
+    z*=5;
+    s6=z.toPrecision(3);
+    c=z/28.0; //moles H2CO3
+    s5c =c.toPrecision(3);
+    d=2.0*c; // mol theor. CO2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*17.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*17.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=g; // find percent yield
+    s10=x.toPrecision(3)+ " g ";
+
+    s2="*10. N2 + H2 ....  If "+s6+" grams of nitrogen";
+    s3="the reaction has "+s5f+"% yield,  find the actual mass of ammonia produced";
+
+    hint="1:2 mole ratio, so "+s5c+" moles nitrogen should produce "+s5d+" moles NH3..."
+    final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+  }
+  break;
+
+/////////////////////////////////////////////
+
+
+  case 8: // N2 + 3 H2 == 2 NH3  WIP NOW.....
+
+  if(type==1)  //3:2  working....
+  {
+
+    //z*=5;
+    //s6=z.toPrecision(3);
+    c=z/2.0; //moles H2
+    s5c =c.toPrecision(3);
+    d=2.0/3.0*c; // mol theor. water
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*17.0; // act g water
+    s5g=g.toPrecision(3);
+    y=d*17.0; // theor g water
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=f; // find percent yield
+    s10=x.toPrecision(3)+ " % ";
+
+    s2="*10. N2 + H2 ....  If "+s6+" grams of hydrogen";
+    s3="produces "+s5g+" g of ammonia,  find the percent yield";
+
+    hint="3:2 mole ratio, so "+s5c+" moles H2 should produce "+s5d+" moles NH3..."
+    final="% yield =  act / theo="+s5g+" g / "+s5+" g of == "+s10+" yield ";
+
+  }
+
+  else // 1:1 working......
+  {
+    //z*=5;
+    //s6=z.toPrecision(3);
+    c=z/2.0; //moles H2CO3
+    s5c =c.toPrecision(3);
+    d=2.0/3.0*c; // mol theor. CO2
+    s5d=d.toPrecision(3);
+    e=d*f/100; // mol actual product
+    s5e=e.toPrecision(3);
+    g=e*17.0; // act g CO2
+    s5g=g.toPrecision(3);
+    y=d*17.0; // theor g CO2
+    s5=y.toPrecision(3);
+
+    //s4="find the percent yield...";
+    s4="";
+
+    x=g; // find percent yield
+    s10=x.toPrecision(3)+ " g ";
+
+    s2="*10. N2 + H2 ....  If "+s6+" grams of hydrogen";
+    s3="the reaction has "+s5f+"% yield,  find the actual mass of ammonia produced";
+
+    hint="3:2 mole ratio, so "+s5c+" moles hydrogen should produce "+s5d+" moles NH3..."
+    final="% yield =  act / theo=  and "+s5f+" % = act / "+s5+" g  and act= "+s10+" ";
+
+  }
+  break;
+
+//
+
+
+
+
+  }
+
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+
+
+  //repaint(); *** ERROR FOR SOME REASON????
+}
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+  shuffle();
+  repaint();
+}//end newVals()
+
+function repaint()
+{
+  //
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+
+}//end repaint()
+
+var canvas = document.getElementById("square");
+repaint();
+
+/*canvas.width=canvas.width; //clears canvas for iterations...
+
+//context.drawString("Yippee",20,80);
+
+*/
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n chem27.html");
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<html>
+<title>
+
+document.write("chem01 - pne atomic mass numbers ");
+
+</title>
+
+<body>
+<canvas id="square" width=550 height=300></canvas>
+
+<script charset="utf-16">
+
+/*
+chem01.html - pne - atomic #, mass #
+//*******************************int answer needs pe<0.000011
+//
+*** get random ionic-check!!
+*** type 1 - find protons
+*** type 2 - find electrons
+*** type 3 - find neutrons in isotope.
+***
+*/
+
+// declare variables.....
+//
+var elements=["H","He","C","O","Ne","Na","S","Fe","Cu","U","Pu","Au","Ag","Th","Pa","Am"];
+var an=[1,2,6,8,10,11,16,26,29,92,94,79,47,90,91,95];
+
+
+var tanion,tcation,tc;
+var problem=1;
+var tries=1;
+var type=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "Atomic number and mass number ";
+var s3 = "WOWEE!";
+var s4="Atomic and Mass Numbers";
+var s5, s6, s7, s8, s9, s10, s11, s12,s13,s14,s15,hint,final,s5a,s5b,s5c; //format decimals
+s4=s7=s5a=s5b=s5c= s13 = "";//s13="\\u0xE2";
+// restart(); - nope did not work...
+//s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+//s13 -
+//s14 - compound name cation+anion
+//s15 -
+//hint - give molar mass if missed
+//final - give solution with mass/mole conversion --in alert() window...
+
+var x,y,z,w,c,d,e,f,R;
+var x=3;
+var pe=0.0;
+
+newVals(); //Problem 1 start
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b) //integer answer<0001
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.00011)
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+
+    }
+  else
+{//keep working
+
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert(hint);
+          s7=hint;
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert(" "+final);
+            //tries=1;
+            s7=""+final;
+            problem++;
+            newVals();
+
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}
+
+function newVals()
+{
+
+
+  tries=1;
+  type=Math.ceil(Math.random()*3); //3 types problems....
+  //type=3;
+  y=Math.floor(Math.random()*an.length); //random 0-12
+  s5=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  z=Math.floor(Math.random()*9)+7; // random 7-12
+  s6=z.toPrecision(3);
+  w=Math.floor(Math.random()*5)+5;
+
+  s5a=elements[y];
+  s5b=elements[z];
+  x=an[y];
+
+  //x=y*z;    //volts V
+  s9=x.toPrecision(3);
+  molarmass=0;
+
+  switch(type)
+  {
+    case 1: //protons
+      s2="The element "+s5a+" has ___ protons. ";
+      s3="";//s3="The element -- "+s5b+" has ___ neutrons==";
+      //s4="y= "+y+" z= "+z;
+
+      hint="hint--on the period table - top or left number ";//
+      s10=x.toPrecision(4)+ " ";
+      final=" The element "+s5a+" has "+x+" protons.";
+    //x=y/z;
+    break;
+
+    case 2://electrons
+      s2="The element "+s5a+" has ___ electrons.";
+      s3=" ";
+      //x=y/molarmass;
+      hint="hint--on the period table - top or left number ";//
+      s10=x.toPrecision(4)+ " ";
+      final=" The element "+s5a+" has "+x+" electrons.";
+    break;
+
+    case 3://neutrons
+
+      //x+=w; //(w is 1.5 ratio of n/p)
+      //c=2*x+w; //c is isotope mass number p+n
+    if(z==7||z==8||z==12)
+     c=Math.floor(2.0*an[z])+w;
+    else
+      c=Math.floor(2.5*an[z])+w;
+      x=c-an[z];
+      s2="The isotope "+s5b+"-"+c+" has ___ neutrons.";
+      s3="";
+
+      //x=6.02e23 * y / molarmass;
+      hint="hint-- mass # - atomic # ";//s4=" "
+      s10=x.toPrecision(4)+ " ";
+      final="The isotope -- "+s5b+"-"+c+" has "+x+" neutrons.";
+    //s2="x = "+y+" + "+z;
+    break;
+  }
+
+  //x=y+z;
+
+ //alert(" y = "+y);
+ //s1="next problem...";
+ //s3="next problem line 2";
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+
+  //repaint(); *** ERROR FOR SOME REASON????
+} //end newVals()
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+
+  repaint();
+}
+
+function repaint()
+{
+  //
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+
+}
+
+var canvas = document.getElementById("square");
+repaint();
+
+/*canvas.width=canvas.width; //clears canvas for iterations...
+
+
+//context.drawString("Yippee",20,80);
+
+//*************************************************************
+// combining wade04 and wade05, canvas and buttons.......
+//
+
+//     <canvas id="graph" width="400" height="250"></canvas></td></tr>
+/*
+1. I need to make an input button and show text for problem.
+1.b. then check with IPad on internet????
+2. then random #
+3. then loop with arrays (10 problems)
+3.b. then check with IPad on internet???
+4.  then ???
+5. use alerts for grade???
+6.
+
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.font = "30px Arial";
+ctx.fillText("Hello World", 10, 50);
+
+
+*/
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n chem01.html");
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+</body>
+
+</html>

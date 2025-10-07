@@ -1,0 +1,301 @@
+<html>
+<title>
+
+document.write("CHEM32 - Q1-Q5 ");
+
+</title>
+
+<body>
+<canvas id="square" width=700 height=300></canvas>
+
+<script>
+
+/*
+CHEM32.html - Q1-Q5
+
+*/
+
+// declare variables.....
+//
+var problem=1;
+var tries=1;
+var type=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "PE  ";
+var s3 = "";//WOWEE!";
+var s4="heat ";//" Q=mc\u0394T";//"   d = m / v";
+var s5, s6, s7, s8, s9, s10, s11, s12,s5c,s5d,s5e,s5f,s5g,hint; //format decimals
+var sQ1,sQ2,sQ3,sQ4,sQ5;
+var sq="\u00b2";
+var delta="\u0394"
+s7=s5c=s5d=s5e=s5f=s5g=hint=sQ1=sQ2=sQ3=sQ4=sQ5="";
+var c,d,e,f,g,Q1,Q2,Q3,Q4,Q5;
+
+c=d=e=f=g=Q1=Q2=Q3=Q4=Q5=0;
+
+// restart(); - nope did not work...
+// s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+
+var x=3;
+var pe=0.0;
+
+//newVals code goes here for problem 1..
+
+newVals(); //Problem 1 start
+
+//x=y+z;
+
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b)
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.033) // 3.3% error for kJ and J...
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+      //s1="If you score is good, have your teacher record it."
+      //s2="If you want to restart, press that button below."
+      //repaint();
+    }
+  else
+{//keep working
+
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert("mmmmm, try again..."+hint)
+          alert("Q1 = "+sQ1);
+          alert("Q2 = "+sQ2);
+          s7=hint;
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert("Q1 = "+sQ1 + "and Q2 = "+sQ2);
+            alert("Q3 = "+sQ3+" and Q4 = "+sQ4+"and Q5 = "+sQ5);
+
+            alert("answer was Qtot= "+final);
+            //tries=1;
+            s7="answer was "+final;
+            s4="next...";
+            problem++;
+            newVals();
+
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}
+
+function newVals()
+{
+
+  //
+  tries=1;
+  type=Math.ceil(Math.random()*3); //3 types problems....
+  type=1;
+   //type=3;
+
+  y=Math.ceil(Math.random()*100)/10 +10;
+  s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(3);
+  x=y*z; // (xF, ym, za)
+  s9=x.toPrecision(3);
+  //s7="";
+  c=Math.ceil(Math.random()*1000)/500 +0.2000;  //0.200 - 2.200 c
+  s5c=c.toPrecision(4);
+  d=c+Math.ceil(Math.random()*1000)/10 +100;  // 100-200 more than c
+  s5d=d.toPrecision(4);
+  e=Math.ceil(Math.random()*1000)/50 +20;  // 20-40 e (mass)
+  s5e=e.toPrecision(3);
+  f=Math.ceil(Math.random()*100)/10 +20;  // 20-30 Ti
+  s5f=f.toPrecision(3);
+  g=Math.ceil(Math.random()*100)/10 +30;  // deltaT 10-40 g
+  s5g=g.toPrecision(3);
+  //y=c/f; // distance of Wo
+  //s5=y.toPrecision(4);
+  z=d/g;
+  s6=z.toPrecision(4);
+  y=f+g; // y is Tf
+  s5=y.toPrecision(3);
+  //f=
+  //y (T5 steam), f(T1 ice), e (mass m)
+
+  switch(type)
+  {
+    case 1: //.. Q=mcT = e * 4.18 * g,  yep yep but verify
+
+    y=38;s5=y.toPrecision(3); //T5 steam
+    f=22;s5f=f.toPrecision(3); // T1 ice
+    e=54;s5e=e.toPrecision(3); // e is mass
+    Q1=e*2.06*f/1000.; sQ1=Q1.toPrecision(4);
+    Q2=334*e/1000.; sQ2=Q2.toPrecision(4);
+    Q3=e*100*4.18/1000.; sQ3=Q3.toPrecision(4);
+    Q4=e*2260/1000.; sQ4=Q4.toPrecision(4);
+    Q5=e*y*1.87/1000.; sQ5=Q5.toPrecision(4);
+    x=Q1+Q2+Q3+Q4+Q5;
+    s12="Q1="+sQ1+" Q2="+sQ2+" Q3="+sQ3+" Q4="+sQ4+" Q5="+sQ5+" . ";
+    s2=" If "+s5e+" g ice is heated from -"+s5f+" C to 1"+ s5+" C,  ";
+    s3=" Find the total heat Q1-Q5 in kJ "
+    //x=4.18 * e*g;
+    hint="Q =  mc"+delta+"T = ("+s5e+" g)(4.18 J/gC )( "+s5f+" C) = "
+    s10=x.toPrecision(4)+ " kJ ";
+    final=""+s10;
+    //x=y/z;
+    break;
+     ////////////////////////
+
+
+
+
+
+/////
+
+  }
+
+
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+
+  //repaint(); *** ERROR FOR SOME REASON????
+}
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+
+  repaint();
+}
+
+function repaint()
+{
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+  g.fillText(s12,20,190);
+
+}
+
+var canvas = document.getElementById("square");
+repaint();
+
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n CHEM32.html");
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+</body>
+
+</html>

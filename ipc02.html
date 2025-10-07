@@ -1,0 +1,335 @@
+<html>
+<title>
+
+document.write("IPC02 - V = IR ");
+
+</title>
+
+<body>
+<canvas id="square" width=450 height=300></canvas>
+
+<script charset="utf-16">
+
+/*
+IPC02.html - V=IR - sort of works...first try
+*** need to get second try working-check!!
+*** needs another problem, with random #s...check!!
+*** need restart button to go back to problem 1--problem ....check!!!
+*** need another method for next problem and new program....check!!!
+*** needs scoring...check!!!
+*** needs solve for volume......check!!!
+*** debug and take out pe answers check for s7...check!!!
+
+*/
+
+// declare variables.....
+//
+var problem=1;
+var tries=1;
+var type=1;
+var score=0;
+var scoredec=0.0;
+var s1 = "Problem # "+problem;
+var s2 = "Electricity V = IR    Ohm's Law ";
+var s3 = "WOWEE!";
+var s4="Ohm's Law    V = IR";
+var ohms = " \u03a9";
+var s5, s6, s7, s8, s9, s10, s11, s12,s13; //format decimals
+s13 = "";//s13="\\u0xE2";
+// restart(); - nope did not work...
+// s1, s2, s3, s4 - problem text
+//s5 - y variable setPrecision(3)
+//s6 - z variable setPrecision(3)
+//s7 - input testing... line 95 pe
+//s8 - var -  percent error -
+//s9 - var
+//s10 - answer for missed 2nd time
+//s11 - score
+//s12 - score decimal rounded
+
+var x=3;
+var pe=0.0;
+
+//newVals code goes here for problem 1..
+
+/*var y=Math.ceil(Math.random()*100)/10+1;
+s5=y.toPrecision(3);
+var z=Math.ceil(Math.random()*100)/10+1;
+s6=z.toPrecision(3);
+s2="x = "+s5+" + "+s6;
+*/
+
+newVals(); //Problem 1 start
+
+//x=y+z;
+
+
+//function equals()  (a,b) b is the answer, a is the user input
+function equals(a,b)
+{
+  var v1 = parseFloat(a);
+  var v2 = parseFloat(b);
+  pe = Math.abs((v1-v2)/v2);
+  s8=pe.toPrecision(5);
+  if(pe<0.011)
+  {return true;}
+  else{return false;}
+
+}
+//function eval() - when button clicked, check for
+// first and second responses....
+function eval()
+{
+  if(problem>10)  // do nothing after problem 10
+    {
+      //s1="If you score is good, have your teacher record it."
+      //s2="If you want to restart, press that button below."
+      //repaint();
+    }
+  else
+{//keep working
+
+
+    var input = document.getElementById("box1").value;
+//
+//
+//
+
+    equals(input,x);
+    // cheat code......
+    //s7=" input = "+input+"     x = "+x.toPrecision(3)+ "pe = "+s8;
+
+    //s11 = "score = "+score+" / "+ (10*problem) ;
+    if(equals(input,x))//(input==x) //correct first time...
+      {
+        alert("You answered "+input+"  correct!");
+        if(tries==1)
+        {
+          score+=10;//10 points
+          s4="GREAT!";
+        }
+        else {
+          score+=5;//5 points
+          s4="Better!";
+        }
+
+        //tries=1;
+        //s4="GREAT!";
+        problem++;
+        newVals();
+
+        //canvas.clear();
+      }
+
+    else //2nd try
+      {
+
+        if(tries==1) //2nd try correct
+        {
+          alert("mmmmm, try again...")
+          tries++;
+
+        }
+        else // 2nd try not correct...next problem.
+          {
+            alert("answer was "+s10);
+            //tries=1;
+            s4="answer was "+s10;
+            problem++;
+            newVals();
+
+          }
+        }
+  //}//close keep working
+
+//problem++;
+scoredec = Math.round(10.0*score/(problem-1));
+//s12=scoredec.toPrecision(1);
+s12=scoredec+"%";
+s11 = "score = "+score+" / "+ (10*(problem-1)) +"  =  " +s12;
+if(problem==1)
+ s11="";
+repaint();
+
+}
+}
+
+function newVals()
+{
+
+  /*
+  var y=Math.ceil(Math.random()*100)/10+1;
+  s5=y.toPrecision(4);
+  var z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(4);
+
+  var x=3;
+  var pe=0.0;
+  var y=Math.ceil(Math.random()*100)/10+1;
+  s5=y.toPrecision(3);
+  var z=Math.ceil(Math.random()*100)/10+1;
+  s6=z.toPrecision(3);
+  s2="x = "+s5+" + "+s6;
+  x=y+z;
+
+  */
+  //
+  tries=1;
+  type=Math.ceil(Math.random()*3); //3 types problems....
+  //type=3;
+  y=Math.ceil(Math.random()*100)/10 +1; //I Current amps
+  s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1; // R ohms
+  s6=z.toPrecision(3);
+  x=y*z;    //volts V
+  s9=x.toPrecision(3);
+  s7="";
+
+  switch(type)
+  {
+    case 1: //V=IR  x=y*z;
+    s2="Find the voltage (V) of a circuit with a current of "+s5+" A";
+    s3="and a resistance of "+s6+ohms+" "+s13;
+    s10=x.toPrecision(3)+ " volts";
+
+    //x=y/z;
+    break;
+
+    case 2:
+    s2="Find the current (A) in a circuit with voltage of  "+s9+" V ";
+    s3="that has a resistance of "+s6+ohms+" ."
+    x=y; // mass is answer...x in input answer...
+
+    s10=x.toPrecision(3)+ " A";
+    break;
+
+    case 3:
+      //solve for volume...next....
+    s2="Find the resistance in a circuit with voltage of "+s9+" V ";
+    s3="that has a current of "+s5+" A.";
+
+    x=z;
+    s10=x.toPrecision(3)+ ohms;
+    //s2="x = "+y+" + "+z;
+    break;
+  }
+
+  //x=y+z;
+
+ //alert(" y = "+y);
+ //s1="next problem...";
+ //s3="next problem line 2";
+ if(problem==11)
+ {
+   s1="DONE!";
+   s2="Record the score with a teacher.";
+   s3="or restart for a better grade :)";
+
+ }
+ else
+  s1="Problem "+problem;
+
+  s11 = "score = "+score+" / "+ (10*(problem-1)) ;
+  if(problem==1)
+   s11="";
+
+
+  //repaint(); *** ERROR FOR SOME REASON????
+}
+
+function restart()
+{
+  problem=1;
+  score=0;
+  tries=1;
+  s1 = "Problem # "+problem;
+  s2 = "WOWEE!";
+  s3 = "HI";
+  s4="";
+  s7 = "restarted.....";
+  s11="";
+
+  //need code from newVals here for restarting program..
+  newVals();
+
+  repaint();
+}
+
+function repaint()
+{
+  //
+  //
+  var g = canvas.getContext("2d");
+  canvas.width=canvas.width; //clears canvas each time.
+  g.font="16px Arial";
+  g.fillText(s1,20,20);
+  g.fillText(s2,20,50);
+  g.fillText(s3,20,80);
+  g.fillText(s4,20,110);
+  g.fillText(s7,20,140);
+  g.fillText(s11,20,170);
+
+}
+
+var canvas = document.getElementById("square");
+repaint();
+
+/*canvas.width=canvas.width; //clears canvas for iterations...
+
+
+//context.drawString("Yippee",20,80);
+
+//*************************************************************
+// combining wade04 and wade05, canvas and buttons.......
+//
+
+//     <canvas id="graph" width="400" height="250"></canvas></td></tr>
+/*
+1. I need to make an input button and show text for problem.
+1.b. then check with IPad on internet????
+2. then random #
+3. then loop with arrays (10 problems)
+3.b. then check with IPad on internet???
+4.  then ???
+5. use alerts for grade???
+6.
+
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+ctx.font = "30px Arial";
+ctx.fillText("Hello World", 10, 50);
+
+
+*/
+
+
+document.write("<br>");
+//document.write(x);
+document.write("<br>");
+document.write("\n IPC02.html");
+
+
+
+
+
+// END OF SCRIPT!!!!
+</script>
+
+<br>
+<input id="box1" placeholder = "enter answer">
+<br>
+<br><br>
+<button onclick="eval()" id = "button1">Check answer</button>
+
+<br>
+<br><br>
+<button onclick="restart()" id = "button2">Restart</button>
+
+
+
+
+
+</body>
+
+</html>
