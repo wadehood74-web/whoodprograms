@@ -46,7 +46,7 @@ function doIt()
 
   vert += 10;
 
-  doc.setFontSize(11);dockey.setFontSize(11);
+  doc.setFontSize(14);dockey.setFontSize(14);
 
 // v is test version, so you can identify printed tests
   v=Math.ceil(Math.random()*10000) +1;
@@ -66,7 +66,7 @@ function doIt()
     dockey.text(s5,20,vert);
     //dockey.text(s10,40,vert);
     vert+=10;//doc.text()
-    doc.text(s3,40,vert)
+    doc.text(s3,48,vert)
     //dockey.text(s0,20,y);
 
 
@@ -74,7 +74,8 @@ function doIt()
     {
       doc.addPage();dockey.addPage();
       vert = 5;
-
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
 
     }
     vert+=35;
