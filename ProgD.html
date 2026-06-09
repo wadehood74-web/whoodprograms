@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgD.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+
+
+<body>
+  <p style="font-size: 50px;">
+  ProgD.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Acceleration worksheet generator<br>
+  click on the button below to generate the QUIZD.PDF and KEYD.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,sx,sy,sz,sv;
+var sq="\u00b2";
+var sub2="\u0032"; // 2082
+var sub3="\u0033";
+var formula="Fe"+sub2+"O"+sub3;
+var trial=" ";
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  doc.text("Name__________________ Number_________ QUIZD", 10, vert);
+  trial="KEYD"+formula
+  dockey.text("KEYD ",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+    dockey.text(s5,20,vert);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZD.PDF");
+  dockey.save("KEYD.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%4;
+  //type=4;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+
+  //sv=v.toString(16);
+  //s7="";
+
+  switch(type)
+  {
+    case 1: //accel positive
+    s2="________ Find the acceleration of an object that starts FROM rest ";
+    s3=" and reaches a velocity of  "+sy+" m/s in " +sz+" s.";
+    s4=x.toPrecision(3)+ " m/s"+sq;
+
+    //x=y/z;
+    break;
+
+    case 2: // accel neg
+    s2="_______ Find the acceleration of an object that goes from  ";
+    s3= sy +" m/s TO REST   in "+sz+" s."
+    x*=-1; // mass is answer...x in input answer...
+
+    s4=x.toPrecision(3)+ " m/s"+sq;
+
+    break;
+
+    case 3: // a=v/t  find t
+    s2="_______ Find how long it takes for an object AT REST to reach "+sy+" m/s";
+    s3="while accelerating at "+sx+" m/s"+sq;
+
+    x=z;
+    s4=x.toPrecision(2)+ " s";
+    //s2="x = "+y+" + "+z;
+    break;
+
+//*********
+
+    case 0: //*****  find final vel  a =v/t, find v
+    s2="_______ Find the final velocity of an object that accelerated FROM REST ";//+s9+" m/s ";
+    s3="at "+sx+" m/s"+sq+" in "+sz+" s.";
+    //x*=-1; //negative accel.
+    x=y; // distance is answer...x in input answer...
+
+    s4=x.toPrecision(3)+ " m/s ";
+    break;
+
+
+    /*case 0:
+      //solve for volume...next....
+    s2="________ Find the time an object travels with velocity of "+sx+" m/s ";
+    s3="   that goes "+sy+" m.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " s";
+    //s2="x = "+y+" + "+z;
+    break;*/
+
+  }
+
+
+
+
+}
+//function
+
+
+
+
+/*
+
+*/
+
+
+</script>
+
+</head>
+
+</html>
+<!--
+<body>
+
+<h1>Chemistry Worksheet Generator</h1>
+<button id="generate">Generate Worksheet + Answer Key</button>
+
+
+
+<py-config>
+    packages = ["fpdf"]
+</py-config>
+
+<script type="py">
+from pyscript import document
+from js import Blob, URL
+from pyodide.ffi import to_js
+from fpdf import FPDF
+import random
+
+# ----------------------------
+# 🔬 YOUR PROBLEM GENERATOR
+# ----------------------------
+def generate_problems(n=10):
+    problems = []
+
+    for i in range(1, n+1):
+        a = random.randint(1, 10)
+        b = random.randint(1, 10)
+
+        question = f"{i}) What is {a} + {b} ?"
+        answer = a + b
+
+        problems.append({
+            "question": question,
+            "answer": answer
+        })
+
+    return problems
+
+
+# ----------------------------
+# 📄 CREATE WORKSHEET PDF
+# ----------------------------
+def create_problem_pdf(problems):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=14)
+
+    pdf.cell(0, 10, "Chemistry Worksheet", ln=True)
+
+    pdf.ln(5)
+
+    for p in problems:
+        pdf.multi_cell(0, 10, p["question"])
+
+    return pdf.output(dest='S').encode('latin1')
+
+
+# ----------------------------
+# ✅ CREATE ANSWER KEY PDF
+# ----------------------------
+def create_answer_pdf(problems):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=14)
+
+    pdf.cell(0, 10, "Answer Key", ln=True)
+    pdf.ln(5)
+
+    for p in problems:
+        line = f'{p["question"]}   Answer: {p["answer"]}'
+        pdf.multi_cell(0, 10, line)
+
+    return pdf.output(dest='S').encode('latin1')
+
+
+# ----------------------------
+# 💾 DOWNLOAD HELPER
+# ----------------------------
+def download_pdf(pdf_bytes, filename):
+    blob = Blob.new([to_js(pdf_bytes)], {"type": "application/pdf"})
+    url = URL.createObjectURL(blob)
+
+    link = document.createElement("a")
+    link.href = url
+    link.download = filename
+    link.click()
+
+
+# ----------------------------
+# ▶️ MAIN BUTTON ACTION
+# ----------------------------
+def generate_all(event):
+    problems = generate_problems(12)
+
+    problem_pdf = create_problem_pdf(problems)
+    answer_pdf = create_answer_pdf(problems)
+
+    download_pdf(problem_pdf, "worksheet.pdf")
+    download_pdf(answer_pdf, "answer_key.pdf")
+
+
+document.getElementById("generate").addEventListener("click", generate_all)
+
+</script>-->
