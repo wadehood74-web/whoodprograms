@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgL.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  ProgL.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Potential Energy quiz  generator<br>
+  click on the button below to generate the QUIZL.PDF and KEYL.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,sx,sy,sz,sv;
+var sq="\u00b2";
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  doc.text("Name__________________ Number_________ QUIZL", 10, vert);
+  dockey.text("KEYL",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+    dockey.text(s5,20,vert);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZL.PDF");
+  dockey.save("KEYL.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%3;
+  //type=1;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=9.8*y*z;
+  sx=x.toPrecision(3);
+
+  //sv=v.toString(16);
+  //s7="";
+
+  switch(type)
+  {
+    case 1: // Force  x = y * z * 9.8  // so x = .5y*Z
+    s2="________ Find the potential energy of an object with mass "+sy+" kg";
+    s3="   with height of  "+sz+" m .";
+    s4=x.toPrecision(3)+ " J";
+
+    //x=y/z;
+    break;
+
+    case 2: // mass is y
+    s2="_______ Find the mass of an object that has a potential energy  "+sx+" J ";
+    s3="   and a height of  "+sz+" m . ";
+    x=y; // mass is answer...x in input answer...
+
+    s4=x.toPrecision(3)+ " kg";
+    break;
+
+    case 0:
+      //solve for volume...next....
+    s2="________ Find the height of an object with a potential energy of "+sx+" J ";
+    s3="   that has a mass of "+sy+" kg.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " m";
+    //s2="x = "+y+" + "+z;
+    break;
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
+<!--
+
+
+</script>-->

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgN.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  ProgN.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Waves  quiz  generator<br>
+  click on the button below to generate the QUIZN.PDF and KEYN.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,sx,sy,sz,sv;
+var sq="\u00b2";
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  doc.text("Name__________________ Number_________ QUIZN", 10, vert);
+  dockey.text("KEYN",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+    dockey.text(s5,20,vert);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZN.PDF");
+  dockey.save("KEYN.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%5;
+  //type=4;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y*z;
+  sx=x.toPrecision(3);
+
+  //sv=v.toString(16);
+  //s7="";
+
+  switch(type)
+  {
+    case 1: // v=f(l)
+    s2="________ Find the velocity of a wave with frequency "+sy+" Hz";
+    s3="   and wavelength   "+sz+" m.";
+    s4=x.toPrecision(3)+ " m/s";
+
+    //x=y/z;
+    break;
+
+    case 2: // f
+    s2="_______ Find the frequency of a wave that has a speed of  "+sx+" m/s ";
+    s3="   and wavelength "+sz+" m. ";
+    x=y; // mass is answer...x in input answer...
+
+    s4=x.toPrecision(3)+ " Hz ";
+    break;
+
+    case 0:
+      //l
+    s2="________ Find the wavelength of a wave with a speed of "+sx+" m/s ";
+    s3="   that has a frequency of "+sy+" Hz.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " m ";
+    //s2="x = "+y+" + "+z;
+    break;
+
+    case 3:
+      //l
+    x=343; //sound
+    sx=x.toPrecision(3);
+    y*=100;
+    sy=y.toPrecision(3);
+    z=x/y;
+    sz=z.toPrecision(3);
+    s2="________ Find the wavelength of a wave with a speed of "+sx+" m/s ";
+    s3="   that has a frequency of "+sy+" Hz.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " m ";
+    //s2="x = "+y+" + "+z;
+    break;
+
+    case 4:
+      //l
+    x=3.0e8; //light
+    sx=x.toPrecision(3);
+    y*=1.0e-9;
+    sy=y.toPrecision(3);
+    z=x/y;
+    sz=z.toPrecision(3);
+    s2="________ Find the wavelength of light with a speed of "+sx+" m/s ";
+    s3="   that has a frequency of "+sy+" Hz.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " m ";
+    //s2="x = "+y+" + "+z;
+    break;
+
+    // case 3: sound
+    // case 4: light
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
+<!--
+
+
+</script>-->
