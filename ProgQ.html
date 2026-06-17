@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgQ.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  ProgQ.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Ionic Nomenclature quiz  generator<br>
+  click on the button below to generate the QUIZQ.PDF and KEYQ.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sx,sy,sz,sv,sans;
+var sq="\u00b2";
+
+var cations = ["sodium ","lithium ","calcium ","potassium ","strontium ",
+              "barium ","aluminum ","magnesium "];
+var cats=["Na", "Li","Ca","K", "Sr","Ba", "Al","Mg"];
+var catcharge = [1,1,2,1,2,2,3,2];
+var catmass = [22.99, 6.94,40.08,39.10,55.85, 55.85, 26.98, 24.31];
+var anions = ["chloride","fluoride","bromide","iodide","sulfide","oxide","nitride","phosphide"]
+var anss = ["Cl","F","Br","I","S","O","N","P" ];
+var ancharge=[1,1,1,1,2 ,2 ,3,3];
+var anmass = [35.45,19.00,17.00,62.00,46.00,94.97,96.07,80.07];
+var tcation, tanion,molarmass;
+
+
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZQ", 10, vert);
+  dockey.text("KEYQ",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    //doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZQ.PDF");
+  dockey.save("KEYQ.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%3;
+  //type=1;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=9.8*y*z;
+  sx=x.toPrecision(3);
+
+  tanion=Math.floor(Math.random()*anions.length);
+  tcation=Math.floor(Math.random()*cations.length);
+  //s7=cations[tcation]+"--"+anions[tanion]+"--"+tcation+"--"+tanion;
+  s14=cations[tcation]+anions[tanion]; console.log(s14);
+  if(catcharge[tcation]==ancharge[tanion]){
+    molarmass = catmass[tcation]+anmass[tanion];
+    sans=cats[tcation]+anss[tanion];
+
+  }
+  else {
+    molarmass = ancharge[tanion]*catmass[tcation]+catcharge[tcation]*anmass[tanion];
+
+    if(ancharge[tanion]==1)
+     sans=cats[tcation];
+    else
+     sans=(cats[tcation]+ancharge[tanion]);
+
+   if(catcharge[tcation]==1)
+    sans+=anss[tanion];
+  else
+    sans+=(anss[tanion]+catcharge[tcation])
+
+
+    /////  sans=""+cats[tcation]+ancharge[tanion]+anss[tanion]+catcharge[tcation];
+    //sans="herro";
+  }
+
+  s3=s14; console.log(" Q " +s3);
+  s4=sans; console.log(" A "+s4);
+
+  s2="_________ write the formula for "+s3;
+
+}
+/*
+  switch(type)
+  {
+    case 0: case 1: case 2:
+    //s3=s14; console.log(s3);
+    //s4=sans;
+    s2="_________ write the ";
+    /*case 1: // Force  x = y * z * 9.8  // so x = .5y*Z
+    s2="________ Find the potential energy of an object with mass "+sy+" kg";
+    s3="   with height of  "+sz+" m .";
+    s4=x.toPrecision(3)+ " J";
+
+    //x=y/z;
+    break;
+
+    case 2: // mass is y
+    s2="_______ Find the mass of an object that has a potential energy  "+sx+" J ";
+    s3="   and a height of  "+sz+" m . ";
+    x=y; // mass is answer...x in input answer...
+
+    s4=x.toPrecision(3)+ " kg";
+    break;
+
+    case 0:
+      //solve for volume...next....
+    s2="________ Find the height of an object with a potential energy of "+sx+" J ";
+    s3="   that has a mass of "+sy+" kg.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " m";
+    //s2="x = "+y+" + "+z;
+    break;
+  }
+
+
+  break;
+} */
+//function
+
+</script>
+
+</head>
+
+</html>
+<!--
+
+
+</script>-->
