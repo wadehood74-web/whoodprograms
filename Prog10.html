@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog10.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog10.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Light frequency wavelength energy  quiz  generator<br>
+  click on the button below to generate the QUIZ10.PDF and KEY10.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,sx,sy,sz,sv,st;
+var sq="\u00b2";
+var lambda = "\u03bb";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  doc.text("Name__________________ Number_________ QUIZ10", 10, vert);
+  dockey.text("KEY10",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+    dockey.text(s5,20,vert);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ10.PDF");
+  dockey.save("KEY10.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%4;
+  //type=2;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y*z;
+  sx=x.toPrecision(3);
+
+  //sv=v.toString(16);
+  //s7="";
+
+  switch(type)
+  {
+    case 3: // find E = hv
+    x=3.0e8; //light
+    sx=x.toPrecision(3);
+    //y*=1.0e-9;
+    y*=100.0;
+    sy=y.toPrecision(3);
+    z=x/y*1.0e9* 6.63e-34;
+    sz=z.toPrecision(3);
+    s2="________ Find the energy of a photon of light that has a ";
+    s3="    wavelength of "+sy+" nm.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " J ";
+    //x=y/z;
+    break;
+
+    case 0: // find wavel from energy
+
+    x=3.0e8; //light
+    sx=x.toPrecision(3);
+    //y*=1.0e-9;
+    y*=100.0;
+    sy=y.toPrecision(3);
+    z=x/y*1.0e9* 6.63e-34;
+    sz=z.toPrecision(3);
+    s2="______ Find the wavelength of a photon of light that has  ";
+    //  s2="Herro!"+lambda;
+    s3="    an energy of "+sz+" J.";
+
+    t=y*1.0e-9;
+    st=t.toPrecision(3);
+    s4=y.toPrecision(3)+ " nm or  "+st+" m";
+
+    break;
+
+
+    case 1: // find freq...
+    x=3.0e8; //light
+    sx=x.toPrecision(3);
+    //y*=1.0e-9;
+    sy=y.toPrecision(3);
+    z=x/y*1.0e9;
+    sz=z.toPrecision(3);
+    s2="________ Find the frequency of a photon of light that has a ";
+    s3="    wavelength of "+sy+" nm.";
+
+    x=z;
+    s4=x.toPrecision(3)+ " Hz ";
+
+    //s2="x = "+y+" + "+z;
+    break;
+
+    case 2: //  find wavelength... NONYET>...
+      //l
+    x=3.0e8; //light
+    sx=x.toPrecision(3);
+    y*=1.0e-9;
+    sy=y.toPrecision(3);
+    z=x/y;
+    sz=z.toPrecision(3);
+    s2="______ Find the wavelength of a photon light  ";
+    s3="   that has a frequency of "+sz+" Hz.";
+
+    x=y;
+    s4=x.toPrecision(3)+ " m ";
+    //s2="x = "+y+" + "+z;
+    break;
+
+    // case 3: sound
+    // case 4: light
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
+<!--
+
+
+</script>-->
