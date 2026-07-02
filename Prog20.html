@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog20.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog20.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Percent composition quiz  generator<br>
+  click on the button below to generate the QUIZ20.PDF and KEY20.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type,solution;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sx,sy,sz,sv,sans,element;
+var sq="\u00b2";
+
+var cations = ["sodium ","lithium ","calcium ","potassium ","strontium ",
+              "barium ","aluminum ","magnesium "];
+var cats=["Na", "Li","Ca","K", "Sr","Ba", "Al","Mg"];
+var catcharge = [1,1,2,1,2,2,3,2];
+var catmass = [22.99, 6.94,40.08,39.10,55.85, 55.85, 26.98, 24.31];
+var anions = ["chloride","fluoride","bromide","iodide","sulfide","oxide","nitride","phosphide"]
+var anss = ["Cl","F","Br","I","S","O","N","P" ];
+var ancharge=[1,1,1,1,2 ,2 ,3,3];
+var anmass = [35.45,19.00,17.00,62.00,46.00,94.97,96.07,80.07];
+var tcation, tanion,molarmass;
+
+var atoms = ["Na", "Li","Ca","K", "Sr","Fe", "Al","Mg","Au","Ag","C","N"];
+var mass = [22.99, 6.94,40.08,39.10,87.62, 55.85, 26.98, 24.31,196.97,107.87,
+            12.01,14.01];
+var ray=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ20", 10, vert);
+  dockey.text("KEY20",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  shuffle();
+
+ //for(i=1;i<ray.length;i++)
+  //console.log(ray[i]);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution,60,vert+10);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ20.PDF");
+  dockey.save("KEY20.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  //type=prob%3;
+  //type=1;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=9.8*y*z;
+  sx=x.toPrecision(3);
+
+  i=Math.floor(Math.random()*atoms.length)
+  element=atoms[i]
+  //console.log(element);
+  sz=element;
+  molarmass=mass[i];
+  //console.log(molarmass);
+
+   //type=15;
+   type=ray[prob];
+
+  switch(type)
+  {
+    //case 0: case 1: case 2:
+    //s3=s14; console.log(s3);
+    //s4=sans;
+    //s2="_________ write the ";
+    case 1: // Na in Na2SO4
+    x=100*45.98/142.05;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of sodium in the compound ";
+    s3=" sodium sulfate ";
+    solution=" 2(22.99) / 142.05 = "+s4+" in Na2SO4";
+
+    break; //yep
+
+
+    case 2: // S in Na2SO4
+    x=100*32.07/142.05;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of sulfur in the compound ";
+    s3=" sodium sulfate ";
+    solution=" 32.07 / 142.05 = "+s4+" in Na2SO4";
+
+    break; //yep
+
+
+    case 3: // O in Na2SO4
+    x=100*64.0/142.05;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" sodium sulfate ";
+
+    solution=" 4(16.00) / 142.05 = "+s4+" in Na2SO4";
+
+    break; //yep
+
+
+    case 4: // K in KMnO4
+    x=100*39.10/158.04;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of potassium in the compound ";
+    s3=" potassium permanganate ";
+    solution= " 39.10 / 158.04 = "+s4+" in KMnO4";
+
+    break; //yep
+
+
+    case 5: // Mn in KMn)4
+    x=100*54.94/158.04;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of manganese in the compound ";
+    s3=" potassium permanganate ";
+    solution=" 54.94 / 158.04 = "+s4+" in KMnO4";
+
+    break;//yep
+
+    case 6: // O in KMnO4
+    x=100*64.00/158.04;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" potassium permanganate ";
+    solution=" 4(16.00) / 158.04 = "+s4+" in KMnO4";
+
+    break; //yep
+
+    case 7: //
+    x=100*55.85/241.85;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of iron in the compound ";
+    s3=" iron (III) nitrate ";
+
+    solution=  " 55.85 / 241.85 = "+s4+" in Fe(NO3)3";
+
+    break;
+
+    case 8: //
+    x=100*3*14.01/241.85;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of nitrogen in the compound ";
+    s3=" iron (III) nitrate ";
+
+    solution=  " 3(14.01)/ 241.85 = "+s4+" in Fe(NO3)3";
+
+    break;
+
+    case 9: //
+    x=100*9*16.00/241.85;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" iron (III) nitrate ";
+
+    solution=" 9(16.00) / 241.85 = "+s4+" in Fe(NO3)3";
+    //x=y/z;
+    break;
+
+
+
+
+
+
+
+    case 10: //
+    x=100*40.08/74.08;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of calcium in the compound ";
+    s3=" calcium hydroxide ";
+
+    solution=" 40.08 / 74.08 = "+s4+" in Ca(OH)2 ";
+    //solution=" 2(22.99) / 142.05 = "+s4+" in Na2SO4";
+    //x=y/z;
+    break;
+
+    case 11: //
+    x=100*2*16.00/74.08;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" calcium hydroxide ";
+
+    solution=" 2(16.00) / 74.08 = "+s4+" in Ca(OH)2 ";
+
+    //x=y/z;
+    break;
+
+    case 12:
+    x=100*16.00/71.85;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" iron (II) oxide ";
+
+    solution=" 16.00 / 71.85 = "+s4+" in FeO ";
+    //solution=" 2(22.99) / 142.05 = "+s4+" in Na2SO4";
+    //final=" 16.00 / 71.85 = "+s4;
+    //x=y/z;
+    break;
+
+    case 13: //
+    x=100*55.85/71.85;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of iron in the compound ";
+    s3=" iron (II) oxide ";
+
+    solution=" 55.85 / 71.85 = "+s4+" in FeO ";
+    //final=" 55.85 / 71.85 = "+s10;
+    //x=y/z;
+    break;
+
+    case 14: //Fe2O3
+    x=100*2*55.85/159.70;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of iron in the compound ";
+    s3=" iron (III) oxide ";
+    //final=" 2*55.85 / 159.70 = "+s10;
+    solution=" 2*55.85 / 159.70 = "+s4+" in Fe2O3";
+    //x=y/z;
+    break;
+
+
+    case 15: //Fe2O3
+     x=100*3*16.00/159.70;
+    s4=x.toPrecision(3)+ " % ";
+    s2="Find the percent (by mass)  of oxygen in the compound ";
+    s3=" iron (III) oxide ";
+    //final=" 2*55.85 / 159.70 = "+s10;
+    solution=" 3*16.00 / 159.70 = "+s4+" in Fe2O3";
+    //x=y/z;
+    break;
+
+
+/*case 2: // mass is y
+    s2="_______ Find the mass of  "+sy+" moles  ";
+    s3="   of the element  "+sz+" . ";
+    x=y*molarmass; // mass is answer...x in input answer...
+
+    s4=x.toPrecision(3)+ " g "+sz;
+    solution=sy+" mol * "+molarmass+"g / 1 mol   = "+ s4;
+
+    break;
+
+    case 0:
+      //solve for volume...next....
+      s2="________ Find the number of atoms of  "+sy+" g";
+      s3="   of the element "+sz+" .";
+      x=6.02e23*y/molarmass;
+      s4=x.toPrecision(3)+ " atoms "+sz;
+      solution=sy+" g * (6.02e23 atoms) / ("+molarmass+" g )  = "+ s4;
+    break;
+*/
+
+  }
+
+
+  //break;
+}
+//function
+
+function shuffle()
+{
+  for(k=1;k<ray.length;k++)
+  {
+   j=Math.floor(Math.random()*ray.length)
+   m=ray[k];
+   ray[k]=ray[j];
+   ray[j]=m;
+
+
+  }
+
+
+}
+
+</script>
+
+</head>
+
+</html>
+<!--
+
+
+</script>-->
