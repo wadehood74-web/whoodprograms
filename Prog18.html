@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog18.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog18.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Mass Mole Ionic Compounds - quiz  generator<br>
+  click on the button below to generate the QUIZ18.PDF and KEY18.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans;
+var solution1,solution2;
+var sq="\u00b2";
+
+
+var cations = ["sodium ","lithium ","calcium ","potassium ","strontium ",
+              "barium ","aluminum ","magnesium ", "iron (II) ", "iron (III) ",
+              "copper (I) ", "copper (II) ","silver "];
+var cats=["Na", "Li","Ca","K", "Sr","Ba", "Al","Mg","Fe","Fe","Cu","Cu","Ag"];
+var catcharge = [1,1,2,1,2,2,3,2,2,3,1,2,1];
+var catmass = [22.99, 6.94,40.08,39.10,87.62,137.33,26.98,24.31,55.85, 55.85,
+             63.55,63.55, 107.87];
+var anions = ["hydroxide","sulfate","nitrate","phosphate","carbonate","chlorate",
+              "nitrite","perchlorate"]
+var anss = ["OH","SO4","NO3","PO4","CO3","ClO3","NO2","ClO4" ];
+var ancharge=[1,2,1,3,2,1,1,1];
+var anmass = [17.00,96.07, 62.01, 94.97, 60.01, 83.45, 46.01,99.45];
+
+var tcation, tanion,molarmass;
+
+
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ18", 10, vert);
+  dockey.text("KEY18",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    //doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ18.PDF");
+  dockey.save("KEY18.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%3;
+  //type=1;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=9.8*y*z;
+  sx=x.toPrecision(3);
+
+  tanion=Math.floor(Math.random()*anions.length);
+  tcation=Math.floor(Math.random()*cations.length);
+  //s7=cations[tcation]+"--"+anions[tanion]+"--"+tcation+"--"+tanion;
+  s14=cations[tcation]+anions[tanion]; console.log(s14);
+  if(catcharge[tcation]==ancharge[tanion]){
+    molarmass = catmass[tcation]+anmass[tanion];
+    sans=cats[tcation]+anss[tanion];
+
+  }
+  else {
+    molarmass = ancharge[tanion]*catmass[tcation]+catcharge[tcation]*anmass[tanion];
+
+    if(ancharge[tanion]==1)
+     sans=cats[tcation];
+    else
+     sans=(cats[tcation]+ancharge[tanion]);
+
+   if(catcharge[tcation]==1)
+    sans+=anss[tanion];
+  else
+    sans+="("+(anss[tanion]+")"+catcharge[tcation]);
+
+
+    /////  sans=""+cats[tcation]+ancharge[tanion]+anss[tanion]+catcharge[tcation];
+    //sans="herro";
+  }
+
+  s3=s14; //console.log(" Q " +s3);
+  s4=sans; //console.log(" A "+s4);
+  sm=molarmass.toPrecision(5);
+  //s2="_________ write the formula for "+s3;
+
+  console.log(s4+" "+molarmass);
+
+  switch(type)
+  {
+    case 1:
+    //s3=s14; console.log(s3);
+    //s4=sans;
+    s2="_________ Find the mass of "+sy+"  mol of "+s3;
+
+    x=y*molarmass;
+    sx=x.toPrecision(3);
+
+    solution1=sx+" g..... and "+s4+" has molar mass "+sm;
+    solution2=sy+" mol * "+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+    case 2:
+    s2="_________ Find the moles of "+sy+" g of "+s3;
+    x=y/molarmass;
+    sx=x.toPrecision(3);
+    solution1=sx+" moles.....  and "+s4+" has molar mass "+sm;
+    solution2=sy+" g * 1 mol / ( "+sm+" g ) =  "+sx+" mol";
+
+    break;
+
+    case 0:
+    s2="_________ Find the number of formula units of "+sy+" g of "+s3;
+    x=6.02e23*y/molarmass;
+    sx=x.toPrecision(3);
+    solution1=sx+" formula units...... and "+s4+" has molar mass "+sm;
+    solution2=sy+" g * 6.02e23 formula units  / ( "+sm+" g) =  "+sx+" mol";
+
+    break;
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
