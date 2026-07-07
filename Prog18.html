@@ -23,7 +23,7 @@
 <script>
 
 var i,j,k,l,m,prob,type;
-var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
 var solution1,solution2;
 var sq="\u00b2";
 
@@ -79,7 +79,7 @@ function doIt()
     newProb();
 
     s0=prob+" )  "+s2;
-    s5=prob+" )  "+s4;
+    s5=prob+" )  "+skey;
     doc.text(s0,20,vert); //doc.text(s1,40,vert);
 
     //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
@@ -169,7 +169,7 @@ function newProb()
 
     x=y*molarmass;
     sx=x.toPrecision(3);
-
+    skey=sx+ " g ";
     solution1=sx+" g..... and "+s4+" has molar mass "+sm;
     solution2=sy+" mol * "+sm+" g / 1 mol =  "+sx+" g";
 
@@ -179,6 +179,7 @@ function newProb()
     s2="_________ Find the moles of "+sy+" g of "+s3;
     x=y/molarmass;
     sx=x.toPrecision(3);
+    skey=sx+ " mol ";
     solution1=sx+" moles.....  and "+s4+" has molar mass "+sm;
     solution2=sy+" g * 1 mol / ( "+sm+" g ) =  "+sx+" mol";
 
@@ -188,6 +189,7 @@ function newProb()
     s2="_________ Find the number of formula units of "+sy+" g of "+s3;
     x=6.02e23*y/molarmass;
     sx=x.toPrecision(3);
+    skey=sx+ " formula units ";
     solution1=sx+" formula units...... and "+s4+" has molar mass "+sm;
     solution2=sy+" g * 6.02e23 formula units  / ( "+sm+" g) =  "+sx+" mol";
 
