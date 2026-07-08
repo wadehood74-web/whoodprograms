@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog21.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog21.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Empirical Formula  quiz  generator<br>
+  click on the button below to generate the QUIZ21.PDF and KEY21.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var a,b,c,d,e,f,g,h,i,j,k,l,m,prob,type,solution1,solution2,skey;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sx,sy,sz,sv,sans,element;
+var xx,yy,zz,sf,sg,sh,sxx,syy,szz;
+var sq="\u00b2";
+
+var cations = ["sodium ","lithium ","calcium ","potassium ","strontium ",
+              "barium ","aluminum ","magnesium "];
+var cats=["Na", "Li","Ca","K", "Sr","Ba", "Al","Mg"];
+var catcharge = [1,1,2,1,2,2,3,2];
+var catmass = [22.99, 6.94,40.08,39.10,55.85, 55.85, 26.98, 24.31];
+var anions = ["chloride","fluoride","bromide","iodide","sulfide","oxide","nitride","phosphide"]
+var anss = ["Cl","F","Br","I","S","O","N","P" ];
+var ancharge=[1,1,1,1,2 ,2 ,3,3];
+var anmass = [35.45,19.00,17.00,62.00,46.00,94.97,96.07,80.07];
+var tcation, tanion,molarmass;
+
+var atoms = ["Na", "Li","Ca","K", "Sr","Fe", "Al","Mg","Au","Ag","C","N"];
+var mass = [22.99, 6.94,40.08,39.10,87.62, 55.85, 26.98, 24.31,196.97,107.87,
+            12.01,14.01];
+var ray=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
+
+
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ21", 10, vert);
+  dockey.text("KEY21",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  shuffle();
+
+ //for(i=1;i<ray.length;i++)
+  //console.log(ray[i]);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ21.PDF");
+  dockey.save("KEY21.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  //type=prob%3;
+  //type=1;
+  y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=9.8*y*z;
+  sx=x.toPrecision(3);
+
+  i=Math.floor(Math.random()*atoms.length)
+  element=atoms[i]
+  //console.log(element);
+  sz=element;
+  molarmass=mass[i];
+  //console.log(molarmass);
+
+   //type=4;
+   //type=ray[prob];
+   type=prob%4;
+
+  switch(type)
+  {
+
+    case 1: // c=1
+
+    c=1;
+    d=Math.ceil(Math.random()*4)+1;
+    e=Math.ceil(Math.random()*5)+2;
+    sans="C"+c+"H"+d+"O"+e;
+    mm=c*12 + d*1 + e*16;
+    f=100*c*12/mm;
+    g=100*d/mm;
+    h=100*e*16/mm;
+
+    sf=f.toPrecision(3);sg=g.toPrecision(3);sh=h.toPrecision(3);
+    s7=sf+" - "+sg+" - "+sh;
+    xx=f/12; yy=g; zz = h/16;
+    sxx=xx.toPrecision(3);syy=yy.toPrecision(3);szz=zz.toPrecision(3);
+    s7=sxx+" mol C  "+syy+" mol H "+szz+" mol O";
+
+
+
+    s2="__________A compound has "+sf+"  % C and "+sg+"  % H and the remainder O. ";
+    s3=" Find the empirical formula. ";
+
+    skey="  "+sans;
+    solution1=s7;
+    solution2="  "+sans;
+
+
+    break; //yep
+
+
+    case 2: // c=2
+
+
+    c=2;
+    d=Math.ceil(Math.random()*10)+1;  // 10-30 d  V1
+    e=Math.ceil(Math.random()*4)+2;  // 20-55 e V2
+    if(d%2==0 && e%2==0) d++;
+
+    sans="C"+c+"H"+d+"O"+e;
+    mm=c*12 + d*1 + e*16;
+    f=100*c*12/mm;
+    g=100*d/mm;
+    h=100*e*16/mm;
+
+    sf=f.toPrecision(3);sg=g.toPrecision(3);sh=h.toPrecision(3);
+    s7=sf+" - "+sg+" - "+sh;
+    xx=f/12; yy=g; zz = h/16;
+    sxx=xx.toPrecision(3);syy=yy.toPrecision(3);szz=zz.toPrecision(3);
+    s7=sxx+" mol C  "+syy+" mol H "+szz+" mol O";
+
+
+
+    s2="__________A compound has "+sf+"  % C and "+sg+"  % H and the remainder O. ";
+    s3=" Find the empirical formula. ";
+
+    skey="  "+sans;
+    solution1=s7;
+    solution2="  "+sans;
+
+
+
+    break; //yep
+
+
+    case 3: // c=2 mass......
+
+    c=2;
+    d=Math.ceil(Math.random()*10)+1;  // 10-30 d  V1
+    e=Math.ceil(Math.random()*4)+2;  // 20-55 e V2
+    if(d%2==0 && e%2==0) d++;
+    x=Math.ceil(Math.random()*5000)/1000 + 1.0;
+    s10=x.toPrecision(4)+ " ";
+
+    sans="C"+c+"H"+d+"O"+e;
+    mm=c*12 + d*1 + e*16;
+
+    f=x*c*12/mm;
+    g=x*d/mm;
+    h=x*e*16/mm;
+
+    sf=f.toPrecision(3);sg=g.toPrecision(3);sh=h.toPrecision(3);
+    s7=sf+" - "+sg+" - "+sh;
+    xx=f/12; yy=g; zz = h/16;
+    sxx=xx.toPrecision(3);syy=yy.toPrecision(3);szz=zz.toPrecision(3);
+    s7=sxx+" mol C  "+syy+" mol H "+szz+" mol O";
+
+
+
+    s2="__________A "+s10+" g sample of a compound has "+sf+"  g C and "+sg+"  g H  ";
+    s3=" with the remainder of mass O.  Find the empirical formula. ";
+
+    skey="  "+sans;
+    solution1=s7;
+    solution2="  "+sans;
+
+    break; //yep
+
+
+    case 0: //  3:x:y
+
+    c=3;
+    d=Math.ceil(Math.random()*5)+4;  // 10-30 d  V1
+    e=Math.ceil(Math.random()*3)+3;  // 20-55 e V2
+    if(d%3==0 && e%3==0) d++;
+
+    sans="C"+c+"H"+d+"O"+e;
+    mm=c*12 + d*1 + e*16;
+    f=100*c*12/mm;
+    g=100*d/mm;
+    h=100*e*16/mm;
+
+    sf=f.toPrecision(3);sg=g.toPrecision(3);sh=h.toPrecision(3);
+    s7=sf+" - "+sg+" - "+sh;
+    xx=f/12; yy=g; zz = h/16;
+    sxx=xx.toPrecision(3);syy=yy.toPrecision(3);szz=zz.toPrecision(3);
+    s7=sxx+" mol C  "+syy+" mol H "+szz+" mol O";
+
+    s2="__________A compound has "+sf+"  % C and "+sg+"  % H and the remainder O. ";
+    s3=" Find the empirical formula. ";
+
+    skey="  "+sans;
+    solution1=s7;
+    solution2="  "+sans;
+
+
+
+
+
+
+
+
+
+    break;
+
+
+
+  }
+
+
+  //break;
+}
+//function
+
+function shuffle()
+{
+  for(k=1;k<ray.length;k++)
+  {
+   j=Math.floor(Math.random()*ray.length)
+   m=ray[k];
+   ray[k]=ray[j];
+   ray[j]=m;
+
+
+  }
+
+
+}
+
+</script>
+
+</head>
+
+</html>
+<!--
+
+
+</script>-->
