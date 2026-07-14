@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog36.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog36.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  pH pOH of Acids and Bases - quiz  generator<br>
+  click on the button below to generate the QUIZ36.PDF and KEY36.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ36", 10, vert);
+  dockey.text("KEY36",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    //doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ36.PDF");
+  dockey.save("KEY36.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%2;
+  //type=2;
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+
+
+
+  s3=s14; //console.log(" Q " +s3);
+  s4=sv; //console.log(" A "+s4);
+  //sm=molarmass.toPrecision(5);
+  //s2="_________ write the formula for "+s3;
+
+  //console.log(s4+" "+molarmass);
+
+  switch(type)
+  {
+    case 1:
+
+    s2="_________ Find the pH of "+sx+"  M HCl ...";
+
+    skey="pH = "+sv+ " ... ";
+    solution1=sv+" just -log( "+sx+" ) that's all!";//" and "+s4+" has molar mass ";
+    solution2=" ... ";//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+    case 0:
+    s2="_________ Find the pH of "+sx+"  M NaOH ...";
+
+    y=14.0-v;
+    sy=y.toPrecision(3);
+    skey="pH = "+sy+ " ... ";
+    solution1=" pOH =  -log( "+sx+" ) = "+sv+" and find pH...";//" and "+s4+" has molar mass ";
+    solution2=" and pH = 14 - "+sv+" =   "+sy;//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+      /*
+    case 0:
+    s2="_________ Find the mass of "+sy+"  mol of "+s3;
+
+    x=y;//*molarmass;
+    sx=x.toPrecision(3);
+    skey=sx+ " g ";
+    solution1=sx+" g.....";//" and "+s4+" has molar mass ";
+    solution2=sy+" mol * ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+      */
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
