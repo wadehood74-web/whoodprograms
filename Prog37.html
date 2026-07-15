@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog37.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog37.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Acids Base titration problems - quiz  generator<br>
+  click on the button below to generate the QUIZ37.PDF and KEY37.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ37", 10, vert);
+  dockey.text("KEY37",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,35,vert)
+
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ37.PDF");
+  dockey.save("KEY37.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%2;
+  //type=1;
+
+  x=Math.ceil(Math.random()*1000)/5000 +0.2000;
+  z=Math.ceil(Math.random()*1000)/30 +20;
+  y=x+Math.ceil(Math.random()*1000)/50 +10;
+
+  m=x*y;
+  sm=m.toPrecision(4);
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(4);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(4);
+  v=x*y/z;
+  sx=x.toPrecision(4);
+  //v=-1*Math.log10(x);
+  sv=v.toPrecision(4);
+
+
+
+
+  s3=s14; //console.log(" Q " +s3);
+  s4=sv; //console.log(" A "+s4);
+  //sm=molarmass.toPrecision(5);
+  //s2="_________ write the formula for "+s3;
+
+  //console.log(s4+" "+molarmass);
+
+  switch(type)
+  {
+    case 1:
+
+    s2="_______If you titrate "+sy+" mL of "+sx+" M NaOH with HCl, and the"
+    s3=" acid volume was "+sz+" mL, what was the concentration of HCl? ";
+    s4="";
+
+    skey=sv+ " M ... ";
+    solution1=sm+" mmol NaOH reacts with "+sm+" mmol HCl and M=mmol/mL";
+    solution2=" [HCl] =  "+sm+"mmol / "+sz+"mL = "+sv+" M HCl";
+
+
+    break;
+
+    case 0:
+    s2="_______**If you titrate "+sy+" mL of "+sx+" M NaOH with HCl, and the"
+    s3=" acid molarity was "+sv+" M, what was the volume of HCl? ";
+    s4="";
+
+    skey=sz+ " mL ... "; // change key to sz...
+    solution1=sm+" mmol NaOH reacts with "+sm+" mmol HCl and M=mmol/mL";
+    solution2=sv+" M =  "+sm+"mmol / V  and V="+sz+" mL HCl";
+
+    break;
+
+    
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
