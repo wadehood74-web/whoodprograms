@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog28.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog28.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Gas pressure conversions - quiz  generator<br>
+  click on the button below to generate the QUIZ28.PDF and KEY28.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ28", 10, vert);
+  dockey.text("KEY28",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    //doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ28.PDF");
+  dockey.save("KEY28.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%4;
+  //type=0;
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+
+
+
+  s3=s14; //console.log(" Q " +s3);
+  s4=sv; //console.log(" A "+s4);
+  //sm=molarmass.toPrecision(5);
+  //s2="_________ write the formula for "+s3;
+
+  //console.log(s4+" "+molarmass);
+
+  switch(type)
+  {
+    case 1:
+
+    z=Math.ceil(Math.random()*2000)/5+500; // z=500-900 torr
+    sz=z.toPrecision(3);
+    x=z/760.0;
+    sx=x.toPrecision(3);
+    s2="Convert a gas with pressure "+sz+" torr to atm : ";//PV=PV  V ";
+    skey=" "+sx+ " atm ";
+    solution1=" "+sz+" torr * (1 atm) / (760 torr) = "+sx+" atm ";
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+/*
+    z=Math.ceil(Math.random()*2000)/5+500; // c=500-900 torr
+    s6=z.toPrecision(3);
+    s2="Convert a gas with pressure "+s6+" torr to atm : ";//PV=PV  V ";
+    s3="  ";
+    s4=" :) "
+    x=z/760.0;
+    s10=x.toPrecision(3)+ " atm";
+    hint="1 atm = 760 torr..."
+    final=" "+s6+" torr * (1 atm) / (760 torr) =    "+s10;
+*/
+
+
+    break;
+
+    case 2:
+
+    z=Math.ceil(Math.random()*2000)/5+500; // z=500-900 torr
+    sz=z.toPrecision(3);
+    x=101.325*z/760.0;
+    sx=x.toPrecision(3);
+    s2="Convert a gas with pressure "+sz+" torr to kPa : ";//PV=PV  V ";
+    skey=" "+sx+ " kPa ";
+    solution1=" "+sz+" torr * (101.325 kPa ) / (760 torr) = "+sx+" kPa ";
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+//    final=" "+s6+" torr * (101.3 kPa) / (760 torr) =    "+s10;
+
+    break;
+
+
+
+    case 0:
+
+    z=Math.ceil(Math.random()*2000)/5+500; // z=500-900 torr
+    sz=z.toPrecision(3);
+    x=z/760.0;
+    sx=x.toPrecision(4);
+    s2="Convert a gas with pressure "+sx+" atm to torr : ";//PV=PV  V ";
+    skey=" "+sz+ " torr ";
+    solution1=" "+sx+" atm * 760 torr /(1 atm)  = "+sz+" torr ";
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+
+    break;
+
+    case 3:
+
+    z=(Math.ceil(Math.random()*2000)/5+500)*101.325/760; // z=500-900 torr NEED KPA to atm
+    sz=z.toPrecision(3);
+    x=z/101.325;
+    sx=x.toPrecision(3);
+    s2="Convert a gas with pressure "+sz+" kPa to atm : ";//PV=PV  V ";
+    skey=" "+sx+ " atm ";
+    solution1=" "+sz+" kPa * (1 atm) / (101.325 kPa ) = "+sx+" atm ";
+    solution2=" ... ";//+sm+" g / 1 mol =  "+sx+" g";
+
+break;
+
+//  final=" "+s6+" kPa * (1 atm) / (101.3 kPa) =    "+s10;
+
+
+      /*
+    case 0:
+    s2="_________ Find the mass of "+sy+"  mol of "+s3;
+
+    x=y;//*molarmass;
+    sx=x.toPrecision(3);
+    skey=sx+ " g ";
+    solution1=sx+" g.....";//" and "+s4+" has molar mass ";
+    solution2=sy+" mol * ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+      */
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
