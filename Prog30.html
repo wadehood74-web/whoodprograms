@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog30.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog30.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Ideal Gas Law PV=nRT - quiz  generator<br>
+  click on the button below to generate the QUIZ30.PDF and KEY30.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2,T1,T2,ss1,ss2;
+var R=0.08206 // L atm/ (mol K)
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ30", 10, vert);
+  dockey.text("KEY30",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=30;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ30.PDF");
+  dockey.save("KEY30.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%4;
+  //type=0;
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+  s3=s14;
+  s4=sv;
+
+
+  switch(type)
+  {
+    case 1: // P= yes!!
+
+    z=Math.ceil(Math.random()*50)/10+1; // z=P 1.0-6.0
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*200)/5+1; // y=V 1.0-41.0
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*400)/2+200;  //m=T K 200-400
+    sm=m.toPrecision(3);
+    x =z*y/m/R;  // n = PV/RT  x= zy/Rm
+     sx=x.toPrecision(3);
+
+    s2="_______ Find the pressure  of a gas with volume "+sy+" L ";
+    s3=" at a temperature of "+sm+" K and contains "+sx+" moles of gas.";//
+    s4=" "
+
+    skey=" "+sz+ " L ";
+    solution1=" P =  ("+sx+" mol)(0.0821 L atm / mol K)("+sm+" K) / ("+sy+" L) = ";
+    solution2=" P = "+skey;//+sm+" g / 1 mol =  "+sx+" g";
+
+
+
+    break;
+
+    case 2: // n= PV/RT   yz/  yes!!
+
+    z=Math.ceil(Math.random()*400)/2+50; // z=T 50.0-250.0 celcius
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*200)/5+1; // y=V 1.0-41.0
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*40)/20+1; // m=P 5.0-10.0
+    sm=m.toPrecision(3);
+
+    x=m*y/z/R;  // n = PV/RT  x= ey/Rz
+    sx=x.toPrecision(3);
+
+
+    s2="_______ Find the moles of gas in a  "+sy+" L container at  ";
+    s3=" "+sz+" K and a pressure of "+sm+" atm. "
+    s4=" "
+
+    skey=" "+sx+ " mol ";
+    solution1=" n  = ( "+sm+" atm)( "+sy+" L) / [( 0.0821 L atm/mol K) * ("+sz+" K) ]";
+    solution2=" n  = "+skey;//+sm+" g / 1 mol =  "+sx+" g";
+
+
+
+
+    break;
+
+
+
+    case 0: // ...... nextV= yes!!
+
+    z=Math.ceil(Math.random()*50)/10+1; // z=P 1.0-6.0
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*200)/5+1; // y=V 1.0-41.0
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*400)/2+200;  //m=T K 200-400
+    sm=m.toPrecision(3);
+    v=Math.ceil(Math.random()*50)/10+2; // P2
+    sv=v.toPrecision(3);
+
+    x=z*y/R/m // n==x
+    sx=x.toPrecision(3);
+
+    s2="_______ Find the volume of a gas with pressure "+sz+" atm ";
+    s3=" at a temperature of "+sm+" K and contains "+sx+" moles of gas.";//
+    s4=" "
+
+    skey=" "+sy+ " L ";
+    solution1=" V =  ("+sx+" mol)(0.0821 L atm / mol K)("+sm+" K) / ("+sz+" atm) = ";
+    solution2=" V = "+skey;//+sm+" g / 1 mol =  "+sx+" g";
+/*     s2="Find the volume of gas (L) V at "+s6+" atm and "+s5d+" K ";
+    s3="in a container of "+s5+" moles.  "
+    x=y*R*d / z; //
+    s10=x.toPrecision(3)+ " L ";
+    */
+
+
+    break;
+
+    case 3:// T=  zy/R/x yes!!!
+
+    z=Math.ceil(Math.random()*50)/10+1; // z=P 1.0-6.0
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*200)/5+1; // y=V 1.0-41.0
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*400)/2+200;  //m=T K 200-400
+    sm=m.toPrecision(3);
+
+    //x=y*T2/T1;
+    x=z*y/R/m // n==x
+    sx=x.toPrecision(3);
+
+    s2="_______ Find the temperature (K) of  "+sy+" L of a gas at  ";
+    s3="  "+sz+" atm with "+sx+" moles in the container. "
+    s4="  "
+
+    skey=" "+sm+ " K ";
+    solution1=" T = ("+sz+" atm)("+sy+" L) / [( 0.0821 L atm/mol K) * ("+sx+" mol) ]";
+    //  solution1=" n  = ( "+sm+" atm)( "+sy+" L) / [( 0.0821 L atm/mol K) * ("+sz+" K) ]";
+    solution2=" and T = "+skey;//+sm+" g / 1 mol =  "+sx+" g";
+
+
+
+    break;
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
