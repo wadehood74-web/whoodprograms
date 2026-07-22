@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog35.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog35.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Dilution - quiz  generator<br>
+  click on the button below to generate the QUIZ35.PDF and KEY35.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2,T1,T2,ss1,ss2;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ35", 10, vert);
+  dockey.text("KEY35",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=30;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ35.PDF");
+  dockey.save("KEY35.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%3;
+  //type=0;
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+
+  s3=s14;
+  s4=sv;
+
+
+  switch(type)
+  {
+    //case 1: // ---DILUTION MV=MV
+    case 1: //Dilute to 1.0 L MV=MV
+
+      y=Math.ceil(Math.random()*75)/100 +1; //y 0.10-0.60
+    sy=y.toPrecision(3);
+
+
+     s2="_______ You want to make 1.0 L of a "+sy+"  M solution, given a   ";
+     s3="stock solution of 18.0 M sulfuric acid. What volume (mL)  ";
+     s4="of the stock solution would you need to make the dilution?"
+      z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+    //s6=z.toPrecision(3);// z=P 1.0-6.0
+
+
+    x=1000*y/18.0;
+    sx=x.toPrecision(3);
+
+    skey=" "+sx+ " mL ";
+    solution1=" (18.0 M)V = ("+sy+" M)( 1000 mL) and V = "+skey;
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+
+    case 2: // V/T.. y / z = x / m....
+
+    z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+    sz=z.toPrecision(3);
+
+
+    y=Math.ceil(Math.random()*75)/100 +1; //y 0.10-0.60
+    sy=y.toPrecision(3);
+
+
+    m=z+Math.ceil(Math.random()*500)/10+5; // e=P 5.0-10.0
+    sm=m.toPrecision(3);
+
+
+    s2="_______ If you take "+sz+" mL of 12 M HCl and dilute to 1.0 L, ";
+    s3="what is the new molarity of the diluted acid?"
+    s4=" ";
+
+    x=12.0*z / 1000; // mass is answer...x in input answer...
+    sx=x.toPrecision(3);
+
+    skey=" "+sx+ " M ";
+    solution1=" (12.0 M) ("+sz+" mL) = M ( 1000 mL) and M = "+skey;
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+
+
+
+    case 0:
+
+    z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*75)/100 +1; //y 0.10-0.60
+    sy=y.toPrecision(3);
+    m=z+Math.ceil(Math.random()*500)/10+5; // e=P 5.0-10.0
+    sm=m.toPrecision(3);
+
+    s2="_______ If you take "+sz+" mL of 12 M HCl and dilute to 0.500 L, ";
+    s3="what is the new molarity of the diluted acid?"
+    s4=" ";
+    x=12.0*z / 500; // mass is answer...x in input answer...
+    sx=x.toPrecision(3);
+
+    skey=" "+sx+ " M ";
+    solution1=" (12.0 M) ("+sz+" mL) = M ( 500 mL) and M = "+skey;
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+
+
+/*
+
+y=Math.ceil(Math.random()*75)/100 +1; //y 0.10-0.60
+s5=y.toPrecision(3);
+  z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+
+ case 1: //Dilute to 1.0 L
+  s2="You want to make a 1.0 L of a "+s5+"  M solution, given a   ";
+  s3="stock solution of 18.0 M sulfuric acid. What volume (mL)  ";
+  s4="of the stock solution would you need to make the dilution?"
+  x=1000*y/18.0;
+  s10=x.toPrecision(3)+ " mL";
+
+  break;
+
+  case 2: // 12.1 M HCl
+  s2="If you take "+s6+" mL of 12 M HCl and dilute to 1.0 L, ";
+  s3="what is the new molarity of the diluted acid?"
+  x=12.0*z / 1000; // mass is answer...x in input answer...
+  s10=x.toPrecision(3)+ " M ";
+
+  break;
+
+  case 3:
+  s2="If you take "+s6+" mL of 12 M HCl and dilute to 0.500 L, ";
+  s3="what is the new molarity of the diluted acid?"
+  x=12.0*z / 500; // mass is answer...x in input answer...
+  s10=x.toPrecision(3)+ " M ";
+  //s2="x = "+y+" + "+z;
+  break;
+  */
+
+
+
+
+
+
+
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
