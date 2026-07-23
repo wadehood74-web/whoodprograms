@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgB.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  ProgB.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Unit Conversion (kilo - milli) quiz  generator<br>
+  click on the button below to generate the QUIZB.PDF and KEYB.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type,diff;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2,T1,T2,ss1,ss2;
+var sq="\u00b2";
+var prefixes = ["k","h","da","d","c","m"];
+var powers = [3,2,1,-1,-2,-3];
+
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZB", 10, vert);
+  dockey.text("KEYB",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=30;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZB.PDF");
+  dockey.save("KEYB.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%3;
+  type=1;
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+
+  s3=s14;
+  s4=sv;
+
+
+  switch(type)
+  {
+    //case 1: // ---DILUTION MV=MV
+    case 1: //Dilute to 1.0 L MV=MV
+
+      y=Math.ceil(Math.random()*100)/10 +1; // 1-10 approx
+    sy=y.toPrecision(3);
+    s5=y.toPrecision(3);
+    unit1 = Math.floor(Math.random()*powers.length);
+    unit2 = Math.floor(Math.random()*powers.length);
+
+      //unit1=0; unit2=5;
+///////////
+
+    if(unit2==unit1 && unit2==(powers.length-1))
+     unit2--;
+    else if(unit1==unit2)
+     unit2++;
+
+     diff = powers[unit1]-powers[unit2];
+
+     //s7="Unit1 = "+powers[unit1] +" -- Unit2 = "+powers[unit2]+" diff = "+diff;
+     s6=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
+
+    //z=Math.pow(Math.random()*100)/10+1; // R ohms
+    //s6=z.toPrecision(3);
+    x = y*Math.pow(10,(powers[unit1]-powers[unit2]));
+    //x=y*w;  ;    //volts V
+
+    s9=x.toPrecision(6);
+
+
+
+    s2="Convert "+s5+" "+s6+" ...";
+    s3=" ";
+    s4=" ";
+    //s3="";//and a resistance of "+s6+" ohms ()"+s13;
+
+    hint="move "+Math.abs(diff)+ " place(s)";
+    if(diff<0) hint+=" left.";
+    if(diff>0) hint+=" right."
+
+     //s2="_______ You want to make 1.0 L of a "+sy+"  M solution, given a   ";
+     //s3="stock solution of 18.0 M sulfuric acid. What volume (mL)  ";
+    // s4="of the stock solution would you need to make the dilution?"
+    //  z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+    //s6=z.toPrecision(3);// z=P 1.0-6.0
+
+
+    //x=1000*y/18.0;
+    if(diff==6)
+     sx=x.toPrecision(8);
+   else if(diff==5)
+     sx=x.toPrecision(7);
+   else if(diff==4)
+       sx=x.toPrecision(6);
+   else if(diff==3)
+         sx=x.toPrecision(5);
+    else
+     sx=x.toPrecision(3);
+
+    skey=" "+sx+" "+ prefixes[unit2]+"m";
+    solution1=hint+" ... "+ sy+" "+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
+ //s6=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+
+
+
+/*
+
+y=Math.ceil(Math.random()*100)/10 +1; //I Current amps
+s5=y.toPrecision(3);
+unit1 = Math.floor(Math.random()*powers.length);
+unit2 = Math.floor(Math.random()*powers.length);
+
+
+if(unit2==unit1 && unit2==(powers.length-1))
+ unit2--;
+else if(unit1==unit2)
+ unit2++;
+
+ diff = powers[unit1]-powers[unit2];
+
+ //s7="Unit1 = "+powers[unit1] +" -- Unit2 = "+powers[unit2]+" diff = "+diff;
+ s6=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
+
+//z=Math.pow(Math.random()*100)/10+1; // R ohms
+//s6=z.toPrecision(3);
+x = y*Math.pow(10,(powers[unit1]-powers[unit2]));
+//x=y*w;  ;    //volts V
+
+s9=x.toPrecision(6);
+
+
+
+s2="Convert "+s5+" "+s6+" ...";
+//s3="";//and a resistance of "+s6+" ohms ()"+s13;
+
+hint="move "+Math.abs(diff)+ " places";
+if(diff<0) hint+=" left.";
+if(diff>0) hint+=" right."
+
+
+  */
+
+
+
+
+
+
+
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
