@@ -146,13 +146,13 @@ function newProb()
      diff = powers[unit1]-powers[unit2];
 
      //s7="Unit1 = "+powers[unit1] +" -- Unit2 = "+powers[unit2]+" diff = "+diff;
-     s6=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
+     s10=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
      sm=sy+" "+prefixes[unit1]+"m";
 
     x = y*Math.pow(10,(powers[unit1]-powers[unit2]));
     s9=x.toPrecision(6);
 
-    s2="Convert "+s5+" "+s6+" ...";
+    s2="Convert "+s5+" "+s10+" ...";
     s3=" ";
     s4=" ";
     //s3="";//and a resistance of "+s6+" ohms ()"+s13;
@@ -173,51 +173,6 @@ function newProb()
     solution3="              1"+prefixes[unit1]+"m       1e"+powers[unit2]+"m";
 
     break;
-
-
-
-/*
-
-y=Math.ceil(Math.random()*100)/10 +1; //I Current amps
-s5=y.toPrecision(3);
-unit1 = Math.floor(Math.random()*powers.length);
-unit2 = Math.floor(Math.random()*powers.length);
-
-
-if(unit2==unit1 && unit2==(powers.length-1))
- unit2--;
-else if(unit1==unit2)
- unit2++;
-
- diff = powers[unit1]-powers[unit2];
-
- //s7="Unit1 = "+powers[unit1] +" -- Unit2 = "+powers[unit2]+" diff = "+diff;
- s6=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
-
-//z=Math.pow(Math.random()*100)/10+1; // R ohms
-//s6=z.toPrecision(3);
-x = y*Math.pow(10,(powers[unit1]-powers[unit2]));
-//x=y*w;  ;    //volts V
-
-s9=x.toPrecision(6);
-
-
-
-s2="Convert "+s5+" "+s6+" ...";
-//s3="";//and a resistance of "+s6+" ohms ()"+s13;
-
-hint="move "+Math.abs(diff)+ " places";
-if(diff<0) hint+=" left.";
-if(diff>0) hint+=" right."
-
-
-  */
-
-
-
-
-
-
 
 
   }

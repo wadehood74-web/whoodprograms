@@ -113,12 +113,12 @@ function newProb()
   sz=z.toPrecision(3);
   x=y/z;
   sx=x.toPrecision(3);
-  v=-1*Math.log10(x);
-  sv=v.toPrecision(3);
+  //v=-1*Math.log10(x);
+  //sv=v.toPrecision(3);
 
 
   s3=s14;
-  s4=sv;
+  //s4=sv;
 
 
   switch(type)
@@ -143,7 +143,7 @@ function newProb()
      diff = powers[unit1]-powers[unit2];
 
      //s7="Unit1 = "+powers[unit1] +" -- Unit2 = "+powers[unit2]+" diff = "+diff;
-     s6=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
+     s10=""+prefixes[unit1]+ "m to "+prefixes[unit2]+"m";
 
     //z=Math.pow(Math.random()*100)/10+1; // R ohms
     //s6=z.toPrecision(3);
@@ -154,7 +154,7 @@ function newProb()
 
 
 
-    s2="Convert "+s5+" "+s6+" ...";
+    s2="Convert "+s5+" "+s10+" ...";
     s3=" ";
     s4=" ";
     //s3="";//and a resistance of "+s6+" ohms ()"+s13;
