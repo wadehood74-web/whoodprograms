@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog34.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog34.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Molarity - quiz  generator<br>
+  click on the button below to generate the QUIZ34.PDF and KEY34.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type,type2,g;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2,T1,T2,ss1,ss2,sg;
+var sq="\u00b2";
+var ray=[1,2,3,4,5,6,7,8,9,10];
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+  shuffle();
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ34", 10, vert);
+  dockey.text("KEY34",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=30;
+  }
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ34.PDF");
+  dockey.save("KEY34.PDF");
+
+
+} //end of doIt
+
+
+function shuffle()
+{
+  for(k=1;k<ray.length;k++)
+  {
+   j=Math.floor(Math.random()*ray.length)
+   m=ray[k];
+   ray[k]=ray[j];
+   ray[j]=m;
+
+
+  }
+
+
+} // end of shuffle()
+
+function newProb()
+{
+
+  type=prob%3;
+  //type=0;
+
+  //type2=Math.ceil(Math.random()*3);
+  type2=ray[prob];
+
+  switch(type2)
+  {
+    case 1: chem="sodium chloride";g=58.44;break;
+    case 2: chem="sodium carbonate";g=105.98;break;
+    case 3: case 8: chem="calcium chloride";g=110.98;break;
+    case 4: chem="sodium sulfate";g=142.05;break;
+    case 5: chem="calcium nitrate";g=164.10;break;
+    case 6: chem="iron (II) chloride";g=126.75;break;
+    case 7: chem="iron (III) chloride";g=162.20;break;
+    case 8: chem="sodium perchlorate";g=122.44;break;
+    case 9: chem="sodium nitrate";g=85.00;break;
+    case 10:  chem="iron (III) chloride";g=197.65;break;
+
+    default: chem="sodium chloride";g=58.44;break;
+
+  }
+  sg=g.toPrecision(5);
+
+  z=Math.ceil(Math.random()*4);
+  //y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  y=Math.ceil(Math.random()*100)/5 +10;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+  s3=s14;
+  s4=sv;
+
+  switch(type)
+  {
+
+    case 1: //Molarity to 1.0 L
+
+    y=Math.ceil(Math.random()*75)/100 +20; //y 0.10-0.60
+    sy=y.toPrecision(3);
+
+
+     s2="_______ Find the molarity of a solution of "+chem+" if you dissolve ";
+     s3="  "+sy+" g of solute in 1.0 L solution... ";
+     s4=" "
+      z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+
+    x=y/g;
+    sx=x.toPrecision(3);
+
+    skey=" "+sx+ " M ";
+    solution1=sy+" / "+sg+" = "+sx+" moles ";//+sx+" moles / 1.0 L = "+skey;
+    solution2="and  "+sx+" moles / 1.0 L = "+skey;;//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+    case 2: // V/T.. y / z = x / m....
+
+    y=Math.ceil(Math.random()*75)/100 +10; //y 0.10-0.60
+    sy=y.toPrecision(3);
+
+
+     s2="_______ Find the molarity of a solution of "+chem+" if you dissolve ";
+     s3="  "+sy+" g of solute in 500 mL solution... ";
+     s4=" "
+      z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+
+    x=y/g/0.5;
+    sx=x.toPrecision(3);
+
+    v=y/g;
+    sv=v.toPrecision(3);
+
+    skey=" "+sx+ " M ";
+    solution1=sy+" / "+sg+" = "+sv+" moles ";//+sx+" moles / 1.0 L = "+skey;
+    solution2="and  "+sv+" moles / 0.500 L = "+skey;;//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+    case 0:
+
+    y=Math.ceil(Math.random()*75)/100 +10; //y 0.10-0.60
+    sy=y.toPrecision(3);
+
+
+      s2="_______ Find the molarity of a solution of "+chem+" if you dissolve ";
+      s3="  "+sy+" g of solute in 250 mL solution... ";
+      s4=" "
+      z=Math.ceil(Math.random()*100)/10+1; // z 1.0-11.0
+
+    x=y/g/0.25;
+    sx=x.toPrecision(3);
+
+    v=y/g;
+    sv=v.toPrecision(3);
+
+    skey=" "+sx+ " M ";
+    solution1=sy+" / "+sg+" = "+sv+" moles ";//+sx+" moles / 1.0 L = "+skey;
+    solution2="and  "+sv+" moles / 0.250 L = "+skey;;//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
