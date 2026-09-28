@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog31.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  Prog31.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Heat - Q=mcdT - quiz  generator<br>
+  click on the button below to generate the QUIZ31.PDF and KEY31.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey;
+var solution1,solution2,T1,T2,ss1,ss2;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZ31", 10, vert);
+  dockey.text("KEY31",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=30;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ31.PDF");
+  dockey.save("KEY31.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%4;
+  //type=3; /// need type 3 find c!!!! found it Sept 28, 2026 :) 
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+  s3=s14;
+  s4=sv;
+
+
+  switch(type)
+  {
+    case 1: // Q=mcT
+
+    z=Math.ceil(Math.random()*200)/10+10; // mass z
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*50)/2+10; // Ti y
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+    sm=m.toPrecision(3);
+    x=4.18*z*(m-y); // Q is x
+    sx=x.toPrecision(4);
+
+    s2="_______ If "+sz+" g water is heated from  "+sy+"\u00b0 C to ";//PV=PV  V ";
+    s3=sm+"\u00b0 C, what is the energy required?  use c = 4.18 J/g\u00b0C ";
+    s4=" ";
+
+    skey=" "+sx+ " J ";
+    solution1=" Q =  ("+sz+" g)(4.18J/g\u00b0C)("+sm+" -  "+sy+")\u00b0C = "+skey;
+    solution2="  ";//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+    case 2: // solve Tf
+
+    z=Math.ceil(Math.random()*200)/10+10; // mass z
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*50)/2+10; // Ti y
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+    sm=m.toPrecision(3);
+    x=4.18*z*(m-y);
+    sx=x.toPrecision(4);
+
+    s2="_______ If you heat "+sz+" g water with  "+sx+" J at an intial temp of to ";//PV=PV  V ";
+    s3=sy+"\u00b0 C, what is the final temp?  use c = 4.18 J/g\u00b0C ";
+    s4=" ";
+
+    skey=" "+sm+ " \u00b0C ";
+    solution1=" Q = "+sx+"J =  ("+sz+" g)(4.18J/g\u00b0C)(Tf -  "+sy+")\u00b0C and  ";//+skey;
+    solution2="Tf =  "+sm+"\u00b0C";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+
+/*
+
+case 2: //  Q=mc(Tf-Ti)    z=e4.18(T-f)    yes, but verify...
+z=4.18*e*g;
+s6=z.toPrecision(4);
+ s2=" If you heat "+s5e+" g water with "+s6+" J  at an initial temperature of";
+s3=s5f+" C, find the final temperature.   Use water c = 4.18 J/gC  ";
+//s4="";
+x=y; // mass is answer...x in input answer...
+hint="Q =  mc"+delta+"T = "+s6+" J = ("+s5e+" g)(4.18 J/gC )( Tf -"+s5f+" C)  "
+s10=x.toPrecision(3)+ " C ";
+final="Tf = "+s10;
+break;
+
+*/
+
+
+    break;
+
+
+
+    case 3: //find c YES sept 28, 2026
+
+// need to get a specific heat....
+
+    z=Math.ceil(Math.random()*200)/10+10; // mass z
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*50)/2+10; // Ti y
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+    sm=m.toPrecision(3);
+    v=Math.ceil(Math.random()*25 + 5.0)/10;
+    sv=v.toPrecision(3);
+
+    x=v*z*(m-y); // Q is x
+    sx=x.toPrecision(4);
+
+    s2="_______ Find the specific heat of an object if "+sx+" J ";
+    s3="is used to raise the temperature of that substance from ";
+    s4=sy+"\u00b0 C to "+sm+" \u00b0 C, with a mass is "+sz+" g.";
+
+    skey=" "+sv+ " J/g\u00b0C ";
+    solution1=" Q = "+sx+" J =  ("+sz+" g)(c)("+sm+" -  "+sy+")\u00b0C and  ";//+skey;
+    solution2="c =  "+sv+" J/g\u00b0C";//+sm+" g / 1 mol =  "+sx+" g";
+
+    break;
+
+    case 0:// find m - 
+
+    z=Math.ceil(Math.random()*200)/10+10; // mass z
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*50)/2+10; // Ti y
+    sy=y.toPrecision(3);
+    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+    sm=m.toPrecision(3);
+    x=4.18*z*(m-y); // Q is x
+    sx=x.toPrecision(4);
+
+    s2="_______ Find the mass of water if  "+sx+" J is used to raise water from  ";//'+sy+"\u00b0 C to ";//PV=PV  V ";
+    s3=sy+"\u00b0 C to "+sm+" \u00b0 C, use c= 4.18 J/g\u00b0C  ";
+    s4=" ";
+
+    skey=" "+sz+ " g ";
+    solution1=" Q = "+sx+"J =  ( m)(4.18 J/g\u00b0C )("+sm+" -  "+sy+")\u00b0C and ";//+skey;
+    solution2="m =  "+sz+"g ";//+sm+" g / 1 mol =  "+sx+" g";
+
+
+    break;
+
+    
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
