@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prog01.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+
+
+<body>
+  <p style="font-size: 50px;">
+  Prog01.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Protons neutrons electrons worksheet generator<br>
+  click on the button below to generate the QUIZ01.PDF and KEY01.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s5,s6,s10,sx,sy,sz,sv;
+var e,f,g,se,sf,sg,solution;
+
+var elements=["H","He","C","O","Ne","Na","S","Fe","Cu","U","Pu","Au","Ag","Th","Pa","Am"];
+var an=[1,2,6,8,10,11,16,26,29,92,94,79,47,90,91,95];
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  doc.text("Name__________________ Number_________ QUIZ01", 10, vert);
+  dockey.text("KEY01",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=10;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+s4;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+    dockey.text(s5,20,vert);
+    dockey.text(solution,60,vert+10);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert)
+    //dockey.text(s0,20,y);
+
+
+    if(prob==5)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+
+    }
+    vert+=35;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZ01.PDF");
+  dockey.save("KEY01.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+  // x,y,z and sx,sy,sz;
+
+  //type=Math.ceil(Math.random()*3); //2 types problems....
+  type=prob%3;
+  //type=2;
+  
+  
+  y=Math.ceil(Math.random()*100)/10 +40;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  z=100-y;
+  v=Math.ceil(Math.random()*100/10) +80;
+
+  g=Math.ceil(Math.random()*5)+1; // 2nd isotope c+5
+  sz=z.toPrecision(3);
+
+   e=y/100;
+   f=z/100;
+   se=e.toPrecision(3);
+   sf=f.toPrecision(3);
+   sg=g.toPrecision(2);
+
+   x=e*v + f*g;
+   sx=x.toPrecision(4);
+  //sv=v.toString(16);
+  //s7="";
+
+  solution=" ";
+  
+  switch(type)
+  {
+    case 1: //Find protons of X ... elements[]   an[] 
+    e=Math.floor(Math.random()*an.length);
+    sy=elements[e];
+    s4=an[e]+" protons in "+sy;
+    s2="________ Find the number of protons in the element "+sy+" . ";
+    s3="";
+   
+    break;
+
+    case 0://Which element has Y electrons?
+    f=Math.floor(Math.random()*an.length);
+    sy=an[f];
+    s4=elements[f]+" has "+sy+" electrons.";
+    s2="________ What element has "+sy+" electrons? ";
+    s3="";
+  
+    break;
+	
+	case 2://Which element has neutrons
+	f=Math.floor(Math.random()*an.length);
+	console.log(f+" "+an[f]+" "+elements[f]+" "+g);
+	
+	if(an[f]==1 || an[f]==2)
+	{
+		g=type;
+		console.log("tiny");
+		e=2*an[f]+g; // mass
+		v=an[f]+g; // #neutrons
+		
+	}
+	else if(an[f]>90)
+	{
+		console.log("big");
+		e=Math.floor(2.5*an[f])+g; // mass
+		v=e-an[f]; // #neutrons
+		// big 1.5
+	}
+	else
+	{
+		console.log("small");
+		e=2*an[f]+g; // mass
+		v=an[f]+g; // #neutrons
+	}
+	
+	sy=elements[f]+"-"+e;
+	s4=elements[f]+"-"+e+" has "+v+" neutrons.";
+	s2="________ How many neutrons does the isotope has "+sy+" have? ";
+	s3="";
+	solution=" subtract... "+e+" - "+an[f]+" = "+v+"neutrons";
+	break; //end case 2:
+
+  }
+
+}
+//function
+
+
+</script>
+
+</head>
+
+</html>
