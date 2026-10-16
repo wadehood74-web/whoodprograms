@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgG1.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  ProgG1.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Free Body Diagrams...  quiz  generator<br>
+  click on the button below to generate the QUIZG1.PDF and KEYG1.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s4a,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey,z1,sz1;
+var solution1,solution2,T1,T2,ss1,ss2,diff;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZG1", 10, vert);
+  dockey.text("KEYG1",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=6;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+	vert+=10;
+	doc.text(s4a,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==3)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+      vert-=30;
+    }
+    vert+=60;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZG1.PDF");
+  dockey.save("KEYG1.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%3+1;
+  //type=1; /// need type 3 find c!!!! found it Sept 28, 2026 :) 
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+  s3=s14;
+  s4=sv;
+
+
+  switch(type)
+  {
+    case 3: // F friction = applied (just equal...)
+
+    z=Math.ceil(Math.random()*100)/10+10; // mass z
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*1000)/10+10; // Ti y
+    sy=y.toPrecision(3);
+	z1=Math.ceil(Math.random()*5000)/10+10; // mass z
+	sz1=z1.toPrecision(3);
+	
+	if(z>y)
+	{
+		diff=z-y+20;
+		y+=diff;
+		sy=y.toPrecision(3);
+		
+	}
+	
+    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+    sm=m.toPrecision(3);
+    x=z; // Q is x
+    sx=x.toPrecision(3);
+
+    s2="_______  DRAW THE FREE BODY DIAGRAM OF THE FOLLOWING:";
+	s3="An object with a weight of "+sz1+" N has a friction force of "+sz+" N.";
+    s4="If it moves at CONSTANT VELOCITY, ";
+    s4a="what is the applied force on the object? ";
+
+
+    skey=" "+sx+ " N";
+    solution1=" Force are equal and opposite so Ff = Fapplied,";
+    solution2="so Fapplied = "+skey;
+
+    break;
+
+    case 2: // rest... equal opposite
+	    z=Math.ceil(Math.random()*100)/10+10; // mass z
+	    sz=z.toPrecision(3);
+	    y=Math.ceil(Math.random()*1000)/10+10; // Ti y
+	    sy=y.toPrecision(3);
+		z1=Math.ceil(Math.random()*5000)/10+10; // mass z
+		sz1=z1.toPrecision(3);
+	
+		if(z>y)
+		{
+			diff=z-y+20;
+			y+=diff;
+			sy=y.toPrecision(3);
+		
+		}
+	
+	    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+	    sm=m.toPrecision(3);
+	    x=z; // equal opposite
+	    sx=x.toPrecision(3);
+
+	    s2="_______  DRAW THE FREE BODY DIAGRAM OF THE FOLLOWING:";
+		s3="An object AT REST with a weight of "+sz1+" N has an ";
+	    s4="applied force of "+sz+" N.  What is the friction force ";
+	    s4a="acting on the stationary object? ";
+
+
+	    skey=" "+sx+ " N";
+	    solution1=" Force are equal and opposite so Ff = Fapplied,";
+	    solution2="so Ff = "+skey;//+ sy+" - "+sz+" ) N / "+sz1+"kg = a = "+skey;//" and.........  ";//+sm+" g / 1 mol =  "+sx+" g";
+		
+    break;
+	
+	case 1: // ACCELLLLLL. F=ma. NET FORCE (MODIFIED)
+	
+	// new????
+		
+	    z=Math.ceil(Math.random()*100)/10+10; // mass z
+	    sz=z.toPrecision(3);
+	    y=Math.ceil(Math.random()*1000)/10+10; // Ti y
+	    sy=y.toPrecision(3);
+		z1=Math.ceil(Math.random()*5000)/40+10; // mass z
+		sz1=z1.toPrecision(3);
+	
+		if(z>y)
+		{
+			diff=z-y+20;
+			y+=diff;
+			sy=y.toPrecision(3);
+		
+		}
+	
+	    m=Math.ceil(Math.random()*50)/2+50; // Tf m
+	    sm=m.toPrecision(3);
+	    x=(y-z); // Q is x
+	    sx=x.toPrecision(3);
+
+	    s2="_______  DRAW THE FREE BODY DIAGRAM OF THE FOLLOWING:";
+		s3="An object with a mass of "+sz1+" kg has a friction force";
+	    s4="of "+sz+" N, and also has an applied force of "+sy+" N.";
+	    s4a="What is the NET FORCE on the object? ";
+
+
+	    skey=" "+sx+ " N";
+	    solution1=" Force = ma, so..... a =  "+skey;
+	    solution2="("+ sy+" - "+sz+" ) N  "+skey;//" and.........  ";//+sm+" g / 1 mol =  "+sx+" g";	
+		
+	
+	break;
+
+
+
+    
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
