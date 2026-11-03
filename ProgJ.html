@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ProgJ.html</title>
+
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js">
+
+</script>
+
+<body>
+  <p style="font-size: 50px;">
+  ProgJ.html<br><br>
+
+
+  <p style="font-size: 25px;">
+  Efficiency work  quiz  generator<br>
+  click on the button below to generate the QUIZJ.PDF and KEYJ.PDF
+  <br><br>
+
+<input type="button" value="Create PDF QUIZ and KEY files" onclick="doIt()" />
+
+<script>
+
+var i,j,k,l,m,prob,type;
+var x,z,s,t,u,v,answer,s1,s2,s3,s4,s4a,s5,s6,s10,s14,sm,sx,sy,sz,sv,sans,skey,z1,sz1;
+var solution1,solution2,T1,T2,ss1,ss2,diff;
+var sq="\u00b2";
+
+function doIt()
+{
+  const { jsPDF } = window.jspdf;
+
+  const doc = new jsPDF();
+  const dockey=new jsPDF();
+
+  let vert = 30;
+
+
+  // Title
+  doc.setFontSize(16);
+  //  doc.setFont('courier');
+  doc.text("Name__________________ Number_________ QUIZJ", 10, vert);
+  dockey.text("KEYJ",10,vert);
+
+  vert += 10;
+
+  doc.setFontSize(14);dockey.setFontSize(14);
+
+// v is test version, so you can identify printed tests
+  v=Math.ceil(Math.random()*10000) +1;
+    //console.log(v);
+  sv=" "+v;
+  s6=""+sv
+  doc.text(s6,180,10);
+  dockey.text(s6,180,10);
+
+  for(prob=1;prob<=6;prob++)
+  {
+    newProb();
+
+    s0=prob+" )  "+s2;
+    s5=prob+" )  "+skey;
+    doc.text(s0,20,vert); //doc.text(s1,40,vert);
+
+    //doc.text("Subscript 0-9: ₀, ₁, ₂, ₃, ₄, ₅, ₆, ₇, ₈, ₉",20,vert+30);
+    dockey.text(s5,20,vert);
+    dockey.text(solution1,60,vert+10);
+    dockey.text(solution2,60,vert+20);
+    //dockey.text(s10,40,vert);
+    vert+=10;//doc.text()
+    doc.text(s3,48,vert);
+    vert+=10;
+    doc.text(s4,48,vert);
+	vert+=10;
+	doc.text(s4a,48,vert);
+    //dockey.text(s0,20,y);
+
+
+    if(prob==3)
+    {
+      doc.addPage();dockey.addPage();
+      vert = 5;
+      doc.text(s6,180,10);
+      dockey.text(s6,180,10);
+      vert-=30;
+    }
+    vert+=60;
+  }
+
+
+
+// generates the PDF files for download...
+  doc.save("QUIZJ.PDF");
+  dockey.save("KEYJ.PDF");
+
+
+} //end of doIt
+
+function newProb()
+{
+
+  type=prob%3+1;
+  //type=2; /// 
+
+
+  z=Math.ceil(Math.random()*4);
+  y=Math.ceil(Math.random()*100 )/22/Math.pow(10,z) ; //y 0.10-0.60
+  //y=Math.ceil(Math.random()*100)/10 +1;
+  sy=y.toPrecision(3);
+  //z=Math.ceil(Math.random()*100)/10+1;
+  sz=z.toPrecision(3);
+  x=y/z;
+  sx=x.toPrecision(3);
+  v=-1*Math.log10(x);
+  sv=v.toPrecision(3);
+
+  s3=s14;
+  s4=sv;
+
+
+  switch(type)
+  {
+    case 1: // eff = Wo / Wi, find Wi.   y = z / x
+
+    z=Math.ceil(Math.random()*100)/10+10; // mass z Wo
+    sz=z.toPrecision(3);
+    y=Math.ceil(Math.random()*100)/5+40; //  y - percent
+    sy=y.toPrecision(3);
+	z1=Math.ceil(Math.random()*5000)/40+10; // ??
+	sz1=z1.toPrecision(3);
+	
+    m=Math.ceil(Math.random()*50)/2+50; // ??
+    sm=m.toPrecision(3);
+    x=100*z / y; //  x is Wi
+    sx=x.toPrecision(3);
+
+    s2="_______  A pulley with efficiency of "+sy+" % will ";
+	s3="output "+sz+"  J of work.  How much work will you";//A pulley with efficiency of "+sz1+" % will output";
+    s4="need to supply? ";
+    s4a=" ";
+
+
+    skey=" "+sx+ " J is  Win";
+    solution1=sy+ "% = "+sz+" J / Win ";
+    solution2=" and Win = "+skey;
+
+    break;
+
+    case 2: // incline plane... find eff
+
+
+	    z=Math.ceil(Math.random()*100)/10+30; // M
+	    sz=z.toPrecision(3);
+	    y=Math.ceil(Math.random()*100)/5+40; // N
+	    sy=y.toPrecision(3);
+		z1=z-5;//Math.ceil(Math.random()*100)/10+20; // M
+		sz1=z1.toPrecision(3);
+		
+		T1=Math.ceil(Math.random()*100)/10+60; // percent
+	    x=T1; //  x is Wi
+		
+	    m=100*y*z/T1/z1;// Math.ceil(Math.random()*50)/2+50;     // N
+	    sm=m.toPrecision(3);
+		
+		
+	    sx=x.toPrecision(3);
+
+	    s2="_______  If you push with  "+sy+" N for "+sz+" m up a ramp,";
+		s3="it raises a "+sm+" N object to a height of "+sz1+" m."
+	    s4="What is the efficiency? (as a percent) ";
+	    s4a="  ";
+
+
+	    skey=" "+sx+ " %";
+	    solution1=" eff = ("+sy+" N * "+sz+"m ) / ("+sm+" N * "+sz1+" m) =  eff ";
+	    solution2=" and eff = "+skey;
+
+    break;
+
+
+
+    case 3: //same as case 2: lever vs ramp...
+
+
+	    z=Math.ceil(Math.random()*100)/10+30; // M
+	    sz=z.toPrecision(3);
+	    y=Math.ceil(Math.random()*100)/5+40; // N
+	    sy=y.toPrecision(3);
+		z1=z-5;//Math.ceil(Math.random()*100)/10+20; // M
+		sz1=z1.toPrecision(3);
+		
+		T1=Math.ceil(Math.random()*100)/10+60; // percent
+	    x=T1; //  x is Wi
+		
+	    m=100*y*z/T1/z1;// Math.ceil(Math.random()*50)/2+50;     // N
+	    sm=m.toPrecision(3);
+		
+		
+	    sx=x.toPrecision(3);
+
+	    s2="_______  If you push down "+sz+" m on a lever with "+sy+" N,";
+		s3="it raises a "+sm+" N object to a height of "+sz1+" m."
+	    s4="What is the efficiency? (as a percent) ";
+	    s4a="  ";
+
+
+	    skey=" "+sx+ " %";
+	    solution1=" eff = ("+sy+" N * "+sz+"m ) / ("+sm+" N * "+sz1+" m) =  eff ";
+	    solution2=" and eff = "+skey;
+
+    break;
+
+    case 0:// find m - 
+
+
+    break;
+
+    
+
+  }
+
+}
+//function
+
+</script>
+
+</head>
+
+</html>
